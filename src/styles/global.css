@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Playfair+Display:wght@400;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg: #F5EBE1;
+  --primary: #BA9A7D;
+  --black: #121213;
+  --white: #FFFFFF;
+
+  --primary-hover: #a5866b;
+  --primary-soft: #e6d3c2;
+
+  --text: var(--black);
+  --text-muted: #6b6b6b;
+
+  --radius: 12px;
+
+  --font-body: 'Raleway', system-ui, sans-serif;
+  --font-heading: 'Poppins', system-ui, sans-serif;
+  --font-accent: 'Playfair Display', serif;
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-accent: var(--font-accent);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
