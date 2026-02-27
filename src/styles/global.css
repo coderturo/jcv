@@ -7,7 +7,7 @@
 
 :root {
   --bg: #F5EBE1;
-  --primary: #BA9A7D;
+  --primary-base: #BA9A7D;
   --black: #121213;
   --white: #FFFFFF;
 
@@ -32,7 +32,7 @@
   --popover: var(--white);
   --popover-foreground: var(--text);
 
-  --primary: var(--primary);
+  --primary: var(--primary-base);
   --primary-foreground: var(--white);
 
   --secondary: var(--primary-soft);
