@@ -142,3 +142,13 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+}

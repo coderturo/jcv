@@ -11,7 +11,7 @@ export default function CTA({ children, className }: CTAProps) {
   return (
     <Button
       className={`
-    bg-[#BA9A7D]/90
+    bg-[#BA9A7D]
     backdrop-blur-sm
         text-white
         rounded-xl

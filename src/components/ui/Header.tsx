@@ -14,7 +14,7 @@ export default function Header() {
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-5 md:px-10 md:pt-8">
         {/* Desktop nav */}
-        <nav className="hidden md:flex absolute top-[45px] left-1/2 -translate-x-1/2 items-center gap-10">
+        <nav className="hidden md:flex absolute top-11.25 left-1/2 -translate-x-1/2 items-center gap-10">
           {LINKS.map((link) =>
             link.isCta ? (
               <a
@@ -90,7 +90,7 @@ export default function Header() {
               </a>
 
               <a
-                className="mt-6 w-[240px] rounded-full bg-[#BA9A7D] py-3 text-center font-semibold"
+                className="mt-6 w-60 rounded-full bg-[#BA9A7D] py-3 text-center font-semibold"
                 href="#donar"
                 onClick={() => setOpen(false)}
               >
