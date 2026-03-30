@@ -1,0 +1,49 @@
+---
+interface Props {
+  texto: string;
+  referencia: string;
+}
+const { texto, referencia } = Astro.props;
+---
+
+<section class="px-6 py-10 md:px-8 md:py-14">
+  <div class="relative w-full overflow-hidden rounded-[24px] bg-[#BA9A7D] px-10 py-12 md:px-16 md:py-14">
+
+   <div class="flex flex-col items-center gap-10 md:flex-row md:gap-14 md:justify-center">
+
+      <!-- Cruz decorativa -->
+      <div class="shrink-0 opacity-[0.18] md:block">
+        <svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="42" y="5" width="16" height="90" fill="#3D2608" />
+          <rect x="10" y="28" width="80" height="16" fill="#3D2608" />
+        </svg>
+      </div>
+
+      <!-- Texto -->
+      <div class="flex flex-col items-center text-center md:items-start md:text-left md:max-w-xl">
+        <div class="mb-5 flex items-center gap-3">
+          <span class="h-px w-6 bg-[#3D2608] opacity-50"></span>
+          <p class="text-base font-bold font-heading uppercase tracking-[0.18em] text-white">
+            Versículo del día
+          </p>
+          <span class="h-px w-6 bg-[#3D2608] opacity-50"></span>
+        </div>
+
+        <span class="font-serif block select-none text-[72px] leading-[0.4] text-[#3D2608] opacity-[0.15]">
+          "
+        </span>
+
+        <blockquote class="font-body font-extrabold relative z-10 mt-2 text-[18px] italic leading-[1.65] text-[#1C0F03] md:text-[22px]">
+          {texto}
+        </blockquote>
+
+        <div class="my-5 h-px w-8 bg-[#3D2608] opacity-40 md:ml-0"></div>
+
+        <p class="text-base font-semibold font-heading uppercase tracking-[0.14em] text-white md:text-[12px]">
+          {referencia}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>

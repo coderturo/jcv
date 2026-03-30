@@ -1,0 +1,7 @@
+---
+import { getDailyVerse } from "@/utils/getDailyVerse";
+import VerseCard from "./VerseCard.astro";
+
+const { texto, referencia } = getDailyVerse();
+---
+<VerseCard texto={texto} referencia={referencia} />
