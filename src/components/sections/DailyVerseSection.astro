@@ -10,7 +10,7 @@ import VerseCard from "./VerseCard.astro";
     const now = new Date(
       new Date().toLocaleString("en-US", { timeZone: "America/Lima" })
     );
-    const baseDate = new Date(2026, 2, 29);
+    const baseDate = new Date(2026, 3, 2);
     const diff = now.getTime() - baseDate.getTime();
     const dayCount = Math.floor(diff / (1000 * 60 * 60 * 24));
     const index = dayCount % verses.length;
