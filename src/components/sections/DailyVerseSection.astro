@@ -1,7 +1,24 @@
 ---
-import { getDailyVerse } from "@/utils/getDailyVerse";
 import VerseCard from "./VerseCard.astro";
-
-const { texto, referencia } = getDailyVerse();
 ---
-<VerseCard texto={texto} referencia={referencia} />
+<VerseCard texto="" referencia="" />
+
+<script>
+  import { verses } from "@/data/verses";
+
+  function getDailyVerse() {
+    const now = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "America/Lima" })
+    );
+    const baseDate = new Date(2026, 2, 29);
+    const diff = now.getTime() - baseDate.getTime();
+    const dayCount = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const index = dayCount % verses.length;
+    return verses[index];
+  }
+
+  const { texto, referencia } = getDailyVerse();
+
+  document.querySelector("blockquote")!.textContent = texto;
+  document.querySelector("[data-referencia]")!.textContent = referencia;
+</script>

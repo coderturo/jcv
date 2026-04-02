@@ -5,7 +5,7 @@ export function getDailyVerse() {
     new Date().toLocaleString("en-US", { timeZone: "America/Lima" })
   );
 
-  // 👉 Fecha base: hoy (29 de marzo 2026)
+  // 👉 Fecha base: (29 de marzo 2026)
   const baseDate = new Date(2026, 2, 29); // mes 2 = marzo
 
   const diff = now.getTime() - baseDate.getTime();
