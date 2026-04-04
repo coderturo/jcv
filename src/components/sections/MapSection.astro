@@ -1,0 +1,36 @@
+---
+import MapComponent from "../ui/MapSection";
+---
+
+<section class="mx-2 md:m-8 px-2 md:p-8 mb-12">
+  <div class="flex flex-col lg:flex-row gap-0 lg:gap-8">
+    <div class="flex-1 flex flex-col justify-center min-h-0">
+      <h2 class="font-heading text-4xl md:text-6xl font-semibold">
+        No te pierdas
+      </h2>
+      <p
+        class="mt-3 sm:mt-4 md:mt-5 xl:mt-6 text-[17px] sm:text-[18px] md:text-[17px] lg:text-[19px] xl:text-[20px] leading-[1.35]
+        sm:leading-[1.3] md:leading-tight xl:leading-[1.22] text-foreground/85 "
+      >
+        Ubícanos fácilmente en el mapa y planifica tu visita sin complicaciones.
+        Queremos que nada sea un impedimento para que puedas acompañarnos.
+        Estamos listos para recibirte con los brazos abiertos y compartir
+        contigo un momento especial.
+      </p>
+
+      <div
+        class="mt-4 sm:mt-5 md:mt-5 xl:mt-7.5 space-y-1 text-[17px] sm:text-[18px] xl:text-[20px] leading-[1.3]"
+      >
+        <p>
+          <span class="font-bold">Referencias:</span>
+          <p>- Plaza Vea - Colonial</p>
+          <p>- Paradero San Jose</p>
+        </p>
+      </div>
+    </div>
+
+    <div class="flex-1 w-full mt-4 lg:mt-0">
+      <MapComponent client:load />
+    </div>
+  </div>
+</section>
