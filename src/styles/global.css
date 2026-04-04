@@ -100,6 +100,7 @@ body {
   --color-brand-black: var(--black);
   --color-brand-bg: var(--bg);
   --color-brand-primary: var(--primary-base);
+  --breakpoint-custom: 1440px;
 }
 
 .dark {
