@@ -5,9 +5,10 @@ import type { ReactNode } from "react";
 interface CTAProps {
   children: ReactNode;
   className?: string;
+  href?: string;
 }
 
-export default function CTA({ children, className }: CTAProps) {
+export default function CTA({ children, href, className }: CTAProps) {
   return (
     <Button
       className={`
@@ -29,8 +30,10 @@ export default function CTA({ children, className }: CTAProps) {
         ${className ?? ""}
       `}
     >
-      {children}
-      <ArrowRight className="w-6! h-6!" strokeWidth={2} />
+      <a href={href} className="contents">
+        {children}
+        <ArrowRight className="w-6! h-6!" strokeWidth={2} />
+      </a>
     </Button>
   );
 }

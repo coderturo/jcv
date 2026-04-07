@@ -5,7 +5,8 @@ const LINKS = [
   { label: "Inicio", href: "#" },
   { label: "Conócenos", href: "#conocenos" },
   { label: "Ministerios", href: "#ministerios" },
-  { label: "Visítanos", href: "#visitanos" },
+  { label: "Visítanos", href: "/visitanos" },
+  { label: "Oremos", href: "/oremos" },
   { label: "Donar", href: "#donar", isCta: true },
 ];
 
@@ -84,10 +85,17 @@ export default function Header() {
               </a>
               <a
                 className="text-xl"
-                href="#visitanos"
+                href="/visitanos"
                 onClick={() => setOpen(false)}
               >
                 Ministerios
+              </a>
+              <a
+                className="text-xl"
+                href="/oremos"
+                onClick={() => setOpen(false)}
+              >
+                Oremos
               </a>
               <a
                 className="text-xl"
