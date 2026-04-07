@@ -4,6 +4,7 @@ import { useState } from "react";
 const LINKS = [
   { label: "Inicio", href: "#" },
   { label: "Conócenos", href: "#conocenos" },
+  { label: "Ministerios", href: "#ministerios" },
   { label: "Visítanos", href: "#visitanos" },
   { label: "Donar", href: "#donar", isCta: true },
 ];
@@ -80,6 +81,13 @@ export default function Header() {
                 onClick={() => setOpen(false)}
               >
                 Conócenos
+              </a>
+              <a
+                className="text-xl"
+                href="#visitanos"
+                onClick={() => setOpen(false)}
+              >
+                Ministerios
               </a>
               <a
                 className="text-xl"
