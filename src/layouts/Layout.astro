@@ -1,28 +1,52 @@
 ---
 import "../styles/global.css";
-import Footer from '@/components/sections/Footer.astro';
+import Footer from "@/components/sections/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Jesús Camino de Vida · Comunidad Cristiana en el Callao",
+  description = "Comunidad viva en Bellavista, Callao. Te esperamos los domingos a las 10:00 a.m. y 7:30 p.m. y entre semana. Fe que transforma, amor que permanece.",
+} = Astro.props;
 ---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Jesus Camino de Vida</title>
-	</head>
-	<body>
-		<slot />
-		<Footer />
-	</body>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    {/* SEO Primario */}
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F5EBE1" />
+
+    {/* Open Graph / Redes Sociales y WhatsApp */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/Callao.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/Callao.png" />
+  </head>
+  <body class="bg-background text-foreground antialiased selection:bg-[#BA9A7D] selection:text-white">
+    <slot />
+    <Footer />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		min-height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+  }
 </style>

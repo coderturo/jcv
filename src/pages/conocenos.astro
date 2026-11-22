@@ -1,0 +1,729 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/ui/Header";
+import {
+  Sparkles,
+  BookOpen,
+  Heart,
+  Users,
+  Compass,
+  Flame,
+  Calendar,
+  CheckCircle2,
+  MapPin,
+  ExternalLink,
+  ChevronRight,
+  Shield,
+  Layers,
+  ArrowRight,
+  Church,
+} from "lucide-react";
+
+const bgHeroConocenos = "/images/IglesiaJCV.png"; // Imagen de fondo para el Hero de la página "Conócenos"
+
+// Estructura cronológica agrupada con base en los 12 puntos históricos
+const HISTORIA_CAPITULOS = [
+  {
+    periodo: "1980 – 1991",
+    titulo: "Los Primeros Pasos y el Comienzo Humilde",
+    subtitulo:
+      "De una sala familiar y bancas de ladrillo a una congregación naciente",
+    descripcion:
+      "La historia comenzó en 1980 con la adquisición del terreno en la urbanización La Colonial por parte de la familia Gamboa Dios. En febrero de 1991, Dina Gamboa organizó la primera Escuela Bíblica de Vacaciones en la sala de su casa junto a sus hermanas Rosa, Liz y Gisella. Para agosto, con apoyo de hermanos del Centro Evangelístico, iniciaron la Escuela Dominical en condiciones muy humildes: bancas de tablones y ladrillos, piso de tierra, cielo abierto y divisiones de cartón. La pastora América Gamboa comenzó a brindar consejería y oración a los padres.",
+    hitos: [
+      "Adquisición del terreno con frente al Parque Ricardo Palma (1980)",
+      "Primera Escuela Bíblica de Vacaciones con los niños del barrio (Febrero 1991)",
+      "Inicio de Escuela Dominical con bancas improvisadas y piso de tierra (Agosto 1991)",
+      "Primeras reuniones de oración y consejería familiar",
+    ],
+    placeholderImg: "/images/primeropasos.webp",
+    placeholderAlt:
+      "Terreno y primeros cimientos frente al Parque Ricardo Palma",
+    tag: "Fundación",
+  },
+  {
+    periodo: "1992 – 1993",
+    titulo: "El Anexo «Camino al Cielo»",
+    subtitulo: "Reconocimiento institucional y primera junta directiva",
+    descripcion:
+      "En septiembre de 1992, el reverendo Lucas Muñoz (Centro Evangelístico de las Asambleas de Dios del Perú) visitó el grupo y formalizó el anexo La Colonial. A solicitud del matrimonio Toledo, se abrió la Escuela Dominical para familias. Ernesto y América Gamboa, junto a sus hijos y yernos, asumieron el pastoreo de la congregación denominada originalmente «Camino al Cielo». En 1993, América se afilió como ministra de las Asambleas de Dios tras sus estudios en ICI Internacional.",
+    hitos: [
+      "Reconocimiento formal por el Rev. Lucas Muñoz (Septiembre 1992)",
+      "Apertura de la Escuela Dominical para familias",
+      "Primera directiva oficial: Martha Dios, Green Leiva, Miguel Toledo, Rosa de Arbulu y Lidia de Gil",
+      "Afiliación pastoral a las Asambleas de Dios del Perú (1993)",
+    ],
+    placeholderImg: "/images/caminoalcielo.webp",
+    placeholderAlt: "Primeras reuniones congregacionales y escuela dominical",
+    tag: "Organización",
+  },
+  {
+    periodo: "1993 – 1999",
+    titulo: "Edificación del Templo con Fe y Sacrificio",
+    subtitulo:
+      "Ahorros pastorales, faenas comunitarias y crecimiento espiritual",
+    descripcion:
+      "El crecimiento espiritual vino acompañado del avance en infraestructura. Los pastores Ernesto y América destinaron sus ahorros personales para techar con calamina el primer piso. Toda la congregación se unió retirando cartones y plásticos para levantar divisiones de triplay y realizando polladas, frijoladas y tamaladas pro-fondos. Con promesas de fe, se consolidó el primer nivel con bases proyectadas para futuras plantas y luego se techó con material noble.",
+    hitos: [
+      "Financiamiento inicial con ahorros personales de los pastores fundadores",
+      "Actividades gastronómicas y promesas de fe de toda la iglesia",
+      "Techado definitivo del primer piso con material noble",
+      "Campañas evangelísticas casa por casa, bautismos y escuelas bíblicas",
+    ],
+    placeholderImg: "/images/edificacion.webp",
+    placeholderAlt: "Construcción y avance de la infraestructura del templo",
+    tag: "Edificación",
+  },
+  {
+    periodo: "2000",
+    titulo: "Instalación Formal de la Iglesia JCV",
+    subtitulo:
+      "6 de febrero del 2000: Autonomía institucional y 50 miembros fundadores",
+    descripcion:
+      "El 6 de febrero del año 2000 se celebró la solemne ceremonia de instalación formal de la Iglesia Jesús Camino de Vida. Con la presencia del superintendente regional, pastor Pedro Rosales, y pastores del Centro Evangelístico, se firmó el Acta de Instalación con 50 miembros en plena comunión, asumiendo representación local ante las Asambleas de Dios del Perú.",
+    hitos: [
+      "Instalación formal solemne el 6 de febrero de 2000 a las 3:00 p.m.",
+      "50 hermanos fundadores firmantes en plena comunión",
+      "Presencia de autoridades de la Región Lima Centro Sur de LADP",
+      "Autonomía legal, institucional y eclesiástica",
+    ],
+    placeholderImg: "/images/instalacion.webp",
+    placeholderAlt: "Instalación formal de la Iglesia Jesús Camino de Vida",
+    tag: "Consolidación",
+  },
+  {
+    periodo: "2001 – 2013",
+    titulo: "Consolidación Familiar y Expansión Misionera",
+    subtitulo:
+      "Restauración de matrimonios, alfabetización y siembra en nuevos distritos",
+    descripcion:
+      "La iglesia priorizó la sanidad y restauración familiar: bautismos masivos, cursos prematrimoniales y alfabetización bíblica dirigida por Rosa de Arbulu. En 2002 se aprobó la construcción del tercer y cuarto piso. En 2003, David Gamboa estableció la sede de ICI Universidad en la iglesia. La pasión misionera impulsó nuevos puntos de predicación: Miguel Grau, Collique y Los Olivos (que en 2013 se estableció como congregación madura con el pastoreo de David y Deda Oscategui).",
+    hitos: [
+      "Restauración integral de familias y consolidación matrimonial",
+      "Ampliación del templo: edificación del 3.er y 4.° piso (2002)",
+      "Sede de ICI Universidad con 12 estudiantes iniciales (2003)",
+      "Apertura misionera en Miguel Grau, Collique y Los Olivos",
+    ],
+    placeholderImg: "/images/consolidacion.webp",
+    placeholderAlt: "Formación bíblica, familias y obra misionera en anexos",
+    tag: "Expansión",
+  },
+  {
+    periodo: "2014 – 2015",
+    titulo: "Nuevos Ministros, Obra en Santa Rosa y Legado del Pastor Ernesto",
+    subtitulo: "Graduaciones teológicas y honra eterna al siervo de Dios",
+    descripcion:
+      "En 2014, David y Deda Oscategui junto a Teodoro Ortega obtuvieron su diploma teológico por Global University, siendo reconocidos como ministros. La obra se expandió a Santa Rosa en 2015. Ese mismo año se ejecutó la modernización integral del segundo y tercer piso con drywall, aulas por edades y oficinas educativas. El 3 de octubre de 2014 partió con el Señor el pastor fundador Ernesto Gamboa, dejando un legado imborrable de fe y generosidad.",
+    hitos: [
+      "Graduación teológica y acreditación ministerial en Global University (2014)",
+      "Apertura del nuevo anexo misionero en Santa Rosa (2015)",
+      "Remodelación de aulas infantiles, oficinas y áreas de comunión (2015)",
+      "Homenaje al pastor Ernesto Gamboa Herrera (1940 – 2014)",
+    ],
+    placeholderImg: "/images/legado.webp",
+    placeholderAlt:
+      "Legado pastoral y modernización de aulas para nuevas generaciones",
+    tag: "Legado",
+    posicion: "object-top",
+  },
+  {
+    periodo: "2016 – 2026",
+    titulo: "Cosecha Evangelística y Conmemoración de los 35 Años",
+    subtitulo:
+      "Bautismos masivos, Franklin Graham en Lima y renovación del altar",
+    descripcion:
+      "En marzo de 2026 la iglesia participó activamente en la cruzada evangelística de Franklin Graham, movilizando dos buses hacia el Estadio Nacional. Este fruto se reflejó en 16 nuevos bautismos en junio. Con motivo del 35.º aniversario de JCV, la pastora principal América Dios y la directiva conformaron una comisión que reestructuró el altar, embelleció el templo y reafirmó la visión de seguir alcanzando al Callao.",
+    hitos: [
+      "Participación en la jornada evangelística en el Estadio Nacional (Marzo 2026)",
+      "16 nuevos creyentes y jóvenes bautizados en junio de 2026",
+      "Celebración de los 35 años de trayectoria ininterrumpida de fe",
+      "Reestructuración y renovación estética y lumínica del altar mayor",
+    ],
+    placeholderImg: "/images/reestructuracion.webp",
+    placeholderAlt: "Celebración de los 35 años y proyección hacia el futuro",
+    tag: "Actualidad",
+  },
+];
+
+// Valores centrales inspirados en Flood Church y adaptados a la identidad de JCV
+const VALORES = [
+  {
+    icon: Flame,
+    nombre: "Gracia y Verdad",
+    cita: "Juan 1:14 · 2 Timoteo 3:16",
+    descripcion:
+      "La verdad de la Palabra de Dios no solo informa, sino que transforma el corazón. Abrazamos a cada persona con la gracia incondicional de Jesús, modelando un refugio espiritual donde todos pueden ser renovados.",
+  },
+  {
+    icon: Heart,
+    nombre: "Familia y Restauración",
+    cita: "Josué 24:15 · Colosenses 3:13",
+    descripcion:
+      "Creemos firmemente en el diseño de Dios para el hogar. Nuestra historia demuestra que cuando una familia es sanada y consolida sus lazos en Cristo, el impacto bendice a generaciones enteras.",
+  },
+  {
+    icon: Compass,
+    nombre: "Fe Activa y Perseverancia",
+    cita: "Hebreos 11:1 · 1 Samuel 7:12",
+    descripcion:
+      "Desde el piso de tierra hasta el templo edificado, nada se logró por comodidad, sino por fe sacrificial, generosidad congregacional y la convicción de que «Hasta aquí nos ayudó Jehová».",
+  },
+  {
+    icon: Users,
+    nombre: "Misión y Multiplicación",
+    cita: "Mateo 28:19-20 · Hechos 1:8",
+    descripcion:
+      "La iglesia existe para salir de las cuatro paredes. Promovemos el discipulado continuo, la apertura de anexos y la proclamación del evangelio en plazas, estadios y hogares necesitados de esperanza.",
+  },
+];
+
+// Ministerios actuales de la iglesia con sus imágenes reales disponibles
+const MINISTERIOS = [
+  {
+    id: "educacion",
+    nombre: "Educación Cristiana (EDYL) y Escuela Dominical",
+    lideres: "Psa. Martha Gamboa, Dina Gamboa y Miguel Ángel Chávez",
+    descripcion:
+      "Formación bíblica integral estructurada para cada etapa: «Amigos de Jesús» (5 a 10 años), «Caminando con Jesús» (11 a 15 años), y clases de discipulado para adolescentes, jóvenes y adultos con materiales oficiales de LADP.",
+    imagen: "/images/ExteriorIgle.jpg",
+    badge: "Niños y Formación",
+  },
+  {
+    id: "jovenes",
+    nombre: "Ministerio de Jóvenes",
+    lideres: "Psa. Martha Gamboa y Hno. Miguel Ángel Chávez",
+    descripcion:
+      "Comunidad para escolares de últimos años y universitarios enfocada en devocionales diarios, estudio expositivo de las Escrituras, proyectos de servicio e impacto en centros de estudio.",
+    imagen: "/images/MJovenes.jpeg",
+    badge: "Juventud JCV",
+  },
+  {
+    id: "damas",
+    nombre: "Ministerio de Damas",
+    lideres: "Psa. América Dios de Gamboa",
+    descripcion:
+      "Columna de intercesión espiritual que sostiene una cadena diaria de oración a las 5:00 a. m. vía WhatsApp, intercediendo con amor por la salud, bienestar y conversión de cada familia.",
+    imagen: "/images/MDamas.jpg",
+    badge: "Mujeres de Oración",
+  },
+  {
+    id: "varones",
+    nombre: "Ministerio de Varones",
+    lideres: "Liderazgo de Varones JCV",
+    descripcion:
+      "Soporte logístico, técnico y espiritual fundamental en el desarrollo de cada servicio, vigilia y proyecto comunitario de la iglesia, forjando líderes de integridad para el hogar y la sociedad.",
+    imagen: "/images/MVarones.jpg",
+    badge: "Servicio y Liderazgo",
+  },
+];
+
+// Equipo de Liderazgo y Junta Directiva
+const LIDERAZGO = [
+  {
+    nombre: "Psa. América Dios de Gamboa",
+    cargo: "Pastora Principal y Fundadora",
+    detalle:
+      "Fundadora de la congregación desde 1991. Graduada de ICI Internacional y ministra acreditada de las Asambleas de Dios del Perú, guiando la visión pastoral con amor y sabiduría.",
+    placeholder: "PA",
+    imagen: null, // Placeholder para imagen real
+  },
+  {
+    nombre: "Psa. Martha Gamboa Dios",
+    cargo: "Asistente Pastoral & Educación",
+    detalle:
+      "Encargada de la dirección de Educación Cristiana (EDYL), consejería y acompañamiento del ministerio de jóvenes, velando por la salud doctrinal de la congregación.",
+    placeholder: "PM",
+    imagen: null,
+  },
+  {
+    nombre: "Hna. Sonia Urbina",
+    cargo: "Secretaria de la Junta Directiva",
+    detalle:
+      "Responsable de la gestión documental, actas congregacionales y coordinación administrativa en plena comunión con las directrices regionales de LADP.",
+    placeholder: "SU",
+    imagen: null,
+  },
+  {
+    nombre: "Hno. Carlos Toledo",
+    cargo: "Tesorero de la Junta Directiva",
+    detalle:
+      "Administrador de los recursos financieros y ofrendas de fe de la congregación con transparencia, fidelidad bíblica y rendición de cuentas.",
+    placeholder: "CT",
+    imagen: null,
+  },
+  {
+    nombre: "Hna. Mari Carmen",
+    cargo: "Diaconisa de Apoyo",
+    detalle:
+      "Servicio diligente en la atención de miembros, apoyo a los santos y soporte en el desenvolvimiento de las celebraciones litúrgicas de la iglesia.",
+    placeholder: "MC",
+    imagen: null,
+  },
+  {
+    nombre: "Ps. Ernesto Gamboa Herrera (†)",
+    cargo: "Pastor Fundador en Memoria",
+    detalle:
+      "1940 – 2014. Sembrador incansable que entregó sus ahorros personales, esfuerzo y vida para ver levantado este templo en honor a Dios. Su legado de fe permanece vivo.",
+    placeholder: "EG",
+    imagen: null,
+    isHomenaje: true,
+  },
+];
+---
+
+<Layout
+  title="Conócenos · Nuestra Historia, Fe y Familia | Jesús Camino de Vida Callao"
+  description="Conoce los 35 años de historia de la Iglesia Jesús Camino de Vida en Bellavista, Callao. Nuestra trayectoria, creencias, ministerios y equipo pastoral."
+>
+  {/* Hero Enmarcado con Imagen de Fondo, Header y Contenido (Igual al Hero Principal) */}
+  <section id="top" class="p-2 sm:p-4 md:pt-6 md:px-6 relative">
+    <div
+      class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/10
+             min-h-[75vh] md:min-h-[82vh] flex flex-col justify-between bg-cover bg-position-[center_70%]"
+      style={`background-image: url('${bgHeroConocenos}')`}
+    >
+      <!-- Overlay degradado para legibilidad garantizada -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85 z-0"></div>
+
+      <Header client:load theme="dark" currentPath="/conocenos" />
+
+      <!-- Contenido Central del Hero -->
+      <div class="relative z-10 flex flex-1 items-center justify-center text-center px-4 sm:px-6 py-20 md:py-24">
+        <div class="max-w-4xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider mb-6 border border-white/20">
+            <Sparkles className="size-3.5 text-[#E6D3C2]" />
+            35 Años de Fe, Familia y Gracia (1991 – 2026)
+          </div>
+
+          <h1 class="font-heading font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight">
+            Una historia escrita con fe,
+            <br class="hidden sm:inline" />
+            amor y propósito en el Callao
+          </h1>
+
+          <p class="mt-6 text-white/90 text-base sm:text-lg md:text-xl max-w-3xl mx-auto font-body leading-relaxed">
+            Desde una modesta sala con bancas de tablón y piso de tierra en
+            1991, hasta una comunidad viva que restaura hogares y proclama el
+            evangelio en Bellavista. Mirando el camino recorrido, testificamos
+            con gratitud:
+            <span class="italic font-semibold text-[#E6D3C2] block mt-2">
+              «Hasta aquí nos ayudó el Señor, y Su fidelidad no ha fallado».
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Barra Inferior de Métricas dentro del Hero -->
+      <div class="relative z-10 border-t border-white/15 bg-black/40 backdrop-blur-md px-6 py-4">
+        <div class="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-white">
+          <div class="py-1">
+            <span class="font-heading text-2xl sm:text-3xl font-bold text-[#E6D3C2]">
+              35+
+            </span>
+            <span class="block text-xs sm:text-sm font-semibold text-white/80 mt-0.5">
+              Años de Trayectoria
+            </span>
+          </div>
+          <div class="py-1">
+            <span class="font-heading text-2xl sm:text-3xl font-bold text-[#E6D3C2]">
+              4
+            </span>
+            <span class="block text-xs sm:text-sm font-semibold text-white/80 mt-0.5">
+              Anexos Impulsados
+            </span>
+          </div>
+          <div class="py-1">
+            <span class="font-heading text-2xl sm:text-3xl font-bold text-[#E6D3C2]">
+              4
+            </span>
+            <span class="block text-xs sm:text-sm font-semibold text-white/80 mt-0.5">
+              Ministerios Activos
+            </span>
+          </div>
+          <div class="py-1">
+            <span class="font-heading text-2xl sm:text-3xl font-bold text-[#E6D3C2]">
+              100%
+            </span>
+            <span class="block text-xs sm:text-sm font-semibold text-white/80 mt-0.5">
+              Centrados en Cristo
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="overflow-hidden">
+    {/* =========================================================================
+        CITA DESTACADA EDITORIAL (Estilo Flood Church)
+       ========================================================================= */}
+    <section class="py-12 bg-[#7D5836] text-white">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 text-center">
+        <blockquote class="font-accent text-xl sm:text-2xl md:text-3xl italic leading-snug">
+          “Id por todo el mundo y predicad el evangelio a toda criatura”
+        </blockquote>
+        <p class="mt-4 text-xs sm:text-sm uppercase tracking-widest text-white/80 font-bold font-heading">
+          — Marcos 16:15
+        </p>
+      </div>
+    </section>
+
+    {/* =========================================================================
+        SECCIÓN 1: NUESTRA HISTORIA (Línea de Tiempo y Capítulos)
+       ========================================================================= */}
+    <section
+      id="historia"
+      class="py-16 sm:py-24 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
+    >
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#7D5836]/15 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider mb-3">
+          <BookOpen className="size-3.5" />
+          El Camino Recorrido
+        </span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
+          Nuestra Historia a Través de las Décadas
+        </h2>
+        <p class="mt-3 text-base sm:text-lg text-foreground/80 font-body">
+          Un recorrido de fe, oración y perseverancia comunitaria donde cada
+          ladrillo y cada vida reflejan la gracia de Dios.
+        </p>
+      </div>
+
+      <div class="space-y-12 sm:space-y-16">
+        {HISTORIA_CAPITULOS.map((cap, index) => {
+          const isPar = index % 2 === 0;
+          return (
+            <div
+              key={cap.periodo}
+              class={`flex flex-col lg:flex-row gap-8 lg:gap-12 items-center p-6 sm:p-8 rounded-3xl bg-white border border-black/5 shadow-sm transition-all hover:shadow-md ${
+                !isPar ? "lg:flex-row-reverse" : ""
+              }`}
+            >
+              {/* Imagen / Placeholder Fotográfico */}
+              <div class="w-full lg:w-1/2 shrink-0">
+                <div class="relative aspect-4/3 rounded-2xl overflow-hidden bg-[#EFE4D8] border border-black/10 group shadow-inner">
+                  <img
+                    src={cap.placeholderImg}
+                    alt={cap.placeholderAlt}
+                    class={`w-full h-full object-cover ${cap.posicion ?? "object-center"} transition-transform duration-500 group-hover:scale-105`}
+                    loading="lazy"
+                  />
+                  <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-semibold">
+                    {cap.tag}
+                  </div>
+                  <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-white/90 backdrop-blur-md text-[#5A3C1E] text-xs font-bold">
+                    {cap.periodo}
+                  </div>
+                </div>
+              </div>
+
+              {/* Contenido Editorial */}
+              <div class="w-full lg:w-1/2 space-y-4">
+                <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#7D5836]">
+                  <Calendar className="size-3.5" />
+                  <span>{cap.periodo}</span>
+                </div>
+
+                <h3 class="font-heading text-2xl sm:text-3xl font-bold text-foreground leading-snug">
+                  {cap.titulo}
+                </h3>
+
+                <p class="text-sm sm:text-base font-semibold text-[#5A3C1E] italic font-body">
+                  {cap.subtitulo}
+                </p>
+
+                <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed font-body">
+                  {cap.descripcion}
+                </p>
+
+                {/* Lista de hitos clave */}
+                <div class="pt-2 border-t border-black/5 space-y-2">
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-foreground/60">
+                    Hitos Principales:
+                  </h4>
+                  <ul class="space-y-1.5">
+                    {cap.hitos.map((hito) => (
+                      <li
+                        key={hito}
+                        class="flex items-start gap-2 text-xs text-foreground/80"
+                      >
+                        <CheckCircle2 className="size-3.5 text-[#7D5836] shrink-0 mt-0.5" />
+                        <span>{hito}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    {/* =========================================================================
+        SECCIÓN 2: EN QUÉ CREEMOS Y VALORES (Heart of JCV)
+       ========================================================================= */}
+    <section
+      id="valores"
+      class="py-16 sm:py-24 bg-[#EFE4D8]/50 border-y border-black/5"
+    >
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#7D5836]/15 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider mb-3">
+            <Shield className="size-3.5" />
+            El Corazón de JCV
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
+            Nuestras Creencias y Valores Fundamentales
+          </h2>
+          <p class="mt-3 text-base sm:text-lg text-foreground/80 font-body">
+            Principios bíblicos inquebrantables que guían cada enseñanza,
+            relación y ministerio en nuestra casa.
+          </p>
+        </div>
+
+        {/* Declaración de Fe / Creencias */}
+        <div class="p-8 sm:p-10 rounded-3xl bg-white border border-black/5 shadow-xs mb-12">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div class="space-y-3 max-w-3xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#7D5836]/10 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider">
+                <Church className="size-3.5" />
+                Declaración Doctrinal
+              </div>
+              <h3 class="font-heading text-xl sm:text-2xl font-bold text-foreground">
+                Afiliados a las Asambleas de Dios del Perú (LADP)
+              </h3>
+              <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed font-body">
+                Jesús Camino de Vida afirma la confesión histórica de la iglesia
+                cristiana fundamentada en la Biblia como la Palabra infalible de
+                Dios. Creemos en la salvación por gracia mediante la fe en
+                Jesucristo, el bautismo en el Espíritu Santo, la sanidad divina
+                y la bendita esperanza de la segunda venida de nuestro Señor.
+              </p>
+            </div>
+            <a
+              href="https://asambleasdediosperu.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#7D5836] text-white text-xs sm:text-sm font-semibold hover:bg-[#69492C] transition-colors shadow-xs"
+            >
+              Conocer Doctrinas LADP
+              <ExternalLink className="size-3.5" />
+            </a>
+          </div>
+        </div>
+
+        {/* Grilla de Valores */}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {VALORES.map((val) => {
+            const Icon = val.icon;
+            return (
+              <div
+                key={val.nombre}
+                class="p-6 sm:p-8 rounded-2xl bg-white border border-black/5 shadow-xs space-y-3 hover:border-[#7D5836]/30 transition-all"
+              >
+                <div class="size-11 rounded-xl bg-[#7D5836]/15 text-[#7D5836] flex items-center justify-center">
+                  <Icon className="size-5" />
+                </div>
+                <div class="flex items-center justify-between">
+                  <h3 class="font-heading font-bold text-lg text-foreground">
+                    {val.nombre}
+                  </h3>
+                  <span class="text-xs font-semibold text-[#5A3C1E] bg-[#EFE4D8] px-2.5 py-0.5 rounded-md">
+                    {val.cita}
+                  </span>
+                </div>
+                <p class="text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
+                  {val.descripcion}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* =========================================================================
+        SECCIÓN 3: NUESTROS MINISTERIOS
+       ========================================================================= */}
+    <section
+      id="ministerios"
+      class="py-16 sm:py-24 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
+    >
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#7D5836]/15 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider mb-3">
+          <Layers className="size-3.5" />
+          Vida en Comunidad
+        </span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
+          Nuestros Ministerios
+        </h2>
+        <p class="mt-3 text-base sm:text-lg text-foreground/80 font-body">
+          Espacios diseñados para caminar juntos en fe, cuidar de cada etapa de
+          la vida y servir con amor al prójimo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {MINISTERIOS.map((min) => (
+          <div
+            key={min.id}
+            class="group rounded-3xl overflow-hidden bg-white border border-black/5 shadow-xs hover:shadow-lg transition-all flex flex-col"
+          >
+            <div class="relative h-56 sm:h-64 overflow-hidden bg-[#EFE4D8]">
+              <img
+                src={min.imagen}
+                alt={min.nombre}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#7D5836] text-white text-xs font-bold tracking-wide shadow-sm">
+                {min.badge}
+              </div>
+            </div>
+
+            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <h3 class="font-heading text-xl font-bold text-foreground">
+                  {min.nombre}
+                </h3>
+                <p class="text-xs font-semibold text-[#5A3C1E]">
+                  Responsables: {min.lideres}
+                </p>
+                <p class="text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
+                  {min.descripcion}
+                </p>
+              </div>
+
+              <div class="pt-3 border-t border-black/5 flex items-center justify-between text-xs font-semibold text-[#7D5836]">
+                <span>Reuniones y formación activa</span>
+                <ChevronRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* =========================================================================
+        SECCIÓN 4: LIDERAZGO Y JUNTA DIRECTIVA
+       ========================================================================= */}
+    <section
+      id="liderazgo"
+      class="py-16 sm:py-24 bg-[#EFE4D8]/50 border-t border-black/5"
+    >
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#7D5836]/15 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider mb-3">
+            <Users className="size-3.5" />
+            Servicio y Acompañamiento
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
+            Liderazgo y Junta Directiva
+          </h2>
+          <p class="mt-3 text-base sm:text-lg text-foreground/80 font-body">
+            Hombres y mujeres llamados a pastorear, cuidar y administrar con
+            fidelidad la obra que Dios encomendó.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {LIDERAZGO.map((lider) => (
+            <div
+              key={lider.nombre}
+              class={`p-6 sm:p-7 rounded-3xl border transition-all text-center flex flex-col items-center justify-between ${
+                lider.isHomenaje
+                  ? "bg-[#BA9A7D]/10 border-[#BA9A7D]/40"
+                  : "bg-white border-black/5 shadow-xs hover:border-[#7D5836]/30"
+              }`}
+            >
+              <div class="flex flex-col items-center space-y-3">
+                {/* Avatar Fotográfico / Placeholder con Iniciales */}
+                <div class="relative size-24 sm:size-28 rounded-full overflow-hidden bg-[#7D5836]/15 border-3 border-white shadow-md flex items-center justify-center">
+                  {lider.imagen ? (
+                    <img
+                      src={lider.imagen}
+                      alt={lider.nombre}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div class="font-heading font-black text-2xl sm:text-3xl text-[#7D5836] select-none">
+                      {lider.placeholder}
+                    </div>
+                  )}
+                  {lider.isHomenaje && (
+                    <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[10px] font-bold py-0.5 uppercase tracking-wider">
+                      En Memoria
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <h3 class="font-heading font-bold text-base sm:text-lg text-foreground">
+                    {lider.nombre}
+                  </h3>
+                  <span class="inline-block mt-0.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#7D5836]/10 text-[#5A3C1E]">
+                    {lider.cargo}
+                  </span>
+                </div>
+
+                <p class="text-xs text-foreground/75 leading-relaxed font-body">
+                  {lider.detalle}
+                </p>
+              </div>
+
+              <div class="mt-5 pt-3 w-full border-t border-black/5 text-[11px] text-[#5A3C1E] font-medium">
+                {lider.isHomenaje
+                  ? "Pionero Fundador (1940 – 2014)"
+                  : "Liderazgo Activo"}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* =========================================================================
+        CALL TO ACTION FINAL (Únete a nuestra historia)
+       ========================================================================= */}
+    <section class="py-16 sm:py-20 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="p-8 sm:p-14 rounded-3xl bg-[#121213] text-white shadow-2xl relative overflow-hidden">
+        <div class="relative z-10 max-w-2xl mx-auto space-y-5">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 text-white text-xs font-bold uppercase tracking-wider">
+            <Heart className="size-3.5 fill-rose-400 text-rose-400" />
+            Sé Parte de Esta Casa
+          </span>
+
+          <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+            Hay un lugar reservado para ti y tu familia
+          </h2>
+
+          <p class="text-sm sm:text-base text-white/80 font-body leading-relaxed">
+            Nuestra historia no se quedó en el pasado: se sigue escribiendo cada
+            domingo en el Parque Ricardo Palma 144, Bellavista. Te esperamos
+            para adorar juntos al Señor.
+          </p>
+
+          <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/visitanos"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#BA9A7D] hover:bg-[#a6866a] text-white font-bold text-sm shadow-md transition-all active:scale-95"
+            >
+              <span>Planifica tu Primera Visita</span>
+              <ArrowRight className="size-4" />
+            </a>
+
+            <a
+              href="/#ubicacion"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm transition-all"
+            >
+              <MapPin className="size-4 text-[#BA9A7D]" />
+              <span>Ver Ubicación y Rutas</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -8,31 +8,27 @@ interface CTAProps {
   href?: string;
 }
 
-export default function CTA({ children, href, className }: CTAProps) {
+export default function CTA({ children, href = "#visitanos", className = "" }: CTAProps) {
   return (
     <Button
+      asChild
       className={`
-    bg-[#BA9A7D]
-    backdrop-blur-sm
+        bg-[#7D5836]
+        hover:bg-[#69492C]
         text-white
         rounded-xl
-        w-67.25 h-14.75
+        px-8 h-13
         text-base md:text-lg
         font-bold
-        flex items-center justify-center gap-2
+        shadow-lg hover:shadow-xl
         transition-all duration-300 ease-out
-
-    hover:bg-[#c6a98b]/95
-    hover:backdrop-blur-md
-    hover:shadow-lg
-    hover:-translate-y-0.5
-
-        ${className ?? ""}
+        hover:-translate-y-0.5 active:translate-y-0
+        ${className}
       `}
     >
-      <a href={href} className="contents">
-        {children}
-        <ArrowRight className="w-6! h-6!" strokeWidth={2} />
+      <a href={href} className="inline-flex items-center justify-center gap-2.5">
+        <span>{children}</span>
+        <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" strokeWidth={2.2} />
       </a>
     </Button>
   );

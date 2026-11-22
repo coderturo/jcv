@@ -1,83 +1,68 @@
 ---
 import MapComponent from "@/components/ui/MapSection";
-import { Bus, Check } from "lucide-react";
+import { Bus, MapPin, Clock, Car } from "lucide-react";
 ---
 
-<section class="mx-2 md:m-8 px-2 md:p-8 mb-12">
-  <div class="flex flex-col lg:flex-row gap-0 lg:gap-8">
-    <!-- Texto izquierdo -->
-    <div class="flex-1 flex flex-col justify-center min-h-0">
-      <h2 class="font-heading text-4xl md:text-6xl font-semibold">
-        No te pierdas
+<section id="ubicacion" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    {/* Columna Izquierda: Información de Visita y Rutas */}
+    <div class="lg:col-span-5 flex flex-col justify-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7D5836]/15 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider w-fit mb-3">
+        <MapPin className="size-3.5" />
+        Ubicación y Rutas
+      </div>
+
+      <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-[1.1] tracking-tight">
+        Estamos cerca de ti en el Callao
       </h2>
-      <p
-        class="mt-2 text-[18px] md:text-[20px] text-[#3D2608] font-medium italic"
-      >
-        Estamos más cerca de lo que imaginas
-      </p>
-      <p
-        class="mt-3 sm:mt-4 md:mt-5 xl:mt-6 text-[17px] sm:text-[18px] md:text-[17px] lg:text-[19px] xl:text-[20px] leading-[1.35] sm:leading-[1.3] md:leading-tight xl:leading-[1.22] text-foreground/85"
-      >
-        Encuéntranos fácilmente y planifica tu visita sin complicaciones.
-        Estamos listos para recibirte con los brazos abiertos.
+
+      <p class="mt-3 text-base sm:text-lg text-foreground/80 leading-relaxed font-body">
+        Ubicados a pasos de la Av. Óscar R. Benavides (Colonial) y Av. Faucett. Planifica tu llegada fácil y cómodamente para nuestros servicios.
       </p>
 
-      <!-- Referencias -->
-      <div class="mt-5 xl:mt-7.5">
-        <p class="font-bold text-[17px] sm:text-[18px] xl:text-[20px] mb-3">
-          Referencias:
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a
-            href="https://maps.app.goo.gl/uQ3qgjfjzhQ6n91K9"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <!-- Plaza Vea -->
-            <div
-              class="flex items-center border-2 border-[#3D2608] rounded-full bg-[#FE0000] cursor-pointer select-none active:scale-95 transition-transform overflow-hidden"
-            >
-              <div class="flex items-center justify-center px-3 py-2 shrink-0">
-                <Check size={18} strokeWidth={4} className="text-[#FFF703]" />
-              </div>
-              <div class="border-l-2 border-[#3D2608] bg-[#F8E4D0] px-3 py-2">
-                <span
-                  class="font-heading font-bold text-[15px] sm:text-[16px] text-brand-black"
-                >
-                  Plaza Vea – Colonial
-                </span>
-              </div>
-            </div>
-          </a>
+      {/* Tarjetas de Guía de Acceso */}
+      <div class="mt-6 space-y-3.5">
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-white/80 border border-black/5 shadow-xs">
+          <div class="size-9 rounded-lg bg-[#7D5836]/15 text-[#7D5836] flex items-center justify-center shrink-0 mt-0.5">
+            <Bus className="size-4.5" />
+          </div>
+          <div>
+            <h3 class="font-heading font-semibold text-sm text-foreground">En Transporte Público</h3>
+            <p class="text-xs sm:text-sm text-foreground/75 leading-relaxed mt-0.5">
+              Bájate en el <strong>Paradero San José</strong> (Av. Colonial). Camina 2 cuadras hacia el Parque Ricardo Palma.
+            </p>
+          </div>
+        </div>
 
-          <a
-            href="https://maps.app.goo.gl/PfTPhAJCNKj3TXXh6"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <!-- Paradero San José -->
-            <div
-              class="flex items-center border-2 border-[#3D2608] rounded-full bg-white cursor-pointer select-none active:scale-95 transition-transform overflow-hidden"
-            >
-              <div class="flex items-center justify-center px-3 py-2 shrink-0">
-                <Bus size={18} strokeWidth={3} className="text-[#2B7FFF]" />
-              </div>
-              <div class="border-l-2 border-[#3D2608] bg-[#F8E4D0] px-3 py-2">
-                <span
-                  class="font-heading font-bold text-[15px] sm:text-[16px] text-brand-black"
-                >
-                  Paradero San José
-                </span>
-              </div>
-            </div>
-          </a>
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-white/80 border border-black/5 shadow-xs">
+          <div class="size-9 rounded-lg bg-[#7D5836]/15 text-[#7D5836] flex items-center justify-center shrink-0 mt-0.5">
+            <Car className="size-4.5" />
+          </div>
+          <div>
+            <h3 class="font-heading font-semibold text-sm text-foreground">Punto de Referencia</h3>
+            <p class="text-xs sm:text-sm text-foreground/75 leading-relaxed mt-0.5">
+              A 3 minutos de <strong>Plaza Vea Colonial</strong>. Zona residencial tranquila con estacionamiento en los alrededores del parque.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-white/80 border border-black/5 shadow-xs">
+          <div class="size-9 rounded-lg bg-[#7D5836]/15 text-[#7D5836] flex items-center justify-center shrink-0 mt-0.5">
+            <Clock className="size-4.5" />
+          </div>
+          <div>
+            <h3 class="font-heading font-semibold text-sm text-foreground">Horarios de Reunión</h3>
+            <p class="text-xs sm:text-sm text-foreground/75 leading-relaxed mt-0.5">
+              Domingos a las <strong>10:00 a.m.</strong> y <strong>7:30 p.m.</strong> · Martes y Jueves <strong>7:30 p.m.</strong>
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Mapa derecho -->
-    <div class="flex-1 w-full mt-4 lg:mt-0 shadow-xl">
-      <MapComponent client:load />
+    {/* Columna Derecha: Mapa Interactivo */}
+    <div class="lg:col-span-7 w-full">
+      <MapComponent client:idle />
     </div>
   </div>
 </section>

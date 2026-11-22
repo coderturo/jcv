@@ -142,16 +142,15 @@ type MapProps = {
   onViewportChange?: (viewport: MapViewport) => void;
   /** Show a loading indicator on the map */
   loading?: boolean;
+  /** Callback fired when the map has loaded */
+  onLoad?: (map: MapLibreGL.Map) => void;
 } & Omit<MapLibreGL.MapOptions, "container" | "style">;
 
 function DefaultLoader() {
   return (
-    <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs">
-      <div className="flex gap-1">
-        <span className="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full" />
-        <span className="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full [animation-delay:150ms]" />
-        <span className="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full [animation-delay:300ms]" />
-      </div>
+    <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center gap-2 backdrop-blur-xs">
+      <Loader2 className="size-4 animate-spin text-[#7D5836]" />
+      <span className="text-xs font-medium text-foreground/80">Cargando mapa...</span>
     </div>
   );
 }
@@ -176,6 +175,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     viewport,
     onViewportChange,
     loading = false,
+    onLoad,
     ...props
   },
   ref,
@@ -188,6 +188,8 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   const styleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const internalUpdateRef = useRef(false);
   const resolvedTheme = useResolvedTheme(themeProp);
+  const onLoadRef = useRef(onLoad);
+  onLoadRef.current = onLoad;
 
   const isControlled = viewport !== undefined && onViewportChange !== undefined;
 
@@ -243,7 +245,10 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
         }
       }, 100);
     };
-    const loadHandler = () => setIsLoaded(true);
+    const loadHandler = () => {
+      setIsLoaded(true);
+      onLoadRef.current?.(map);
+    };
 
     // Viewport change handler - skip if triggered by internal update
     const handleMove = () => {
@@ -255,6 +260,11 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     map.on("styledata", styleDataHandler);
     map.on("move", handleMove);
     setMapInstance(map);
+
+    if (map.loaded()) {
+      setIsLoaded(true);
+      onLoadRef.current?.(map);
+    }
 
     return () => {
       clearStyleTimeout();

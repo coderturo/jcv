@@ -1,24 +1,16 @@
 ---
 import VerseCard from "./VerseCard.astro";
+import { verses } from "@/data/verses";
+
+// Cálculo en servidor (SSR / Build time) para cero layout shift y SEO completo
+const now = new Date(
+  new Date().toLocaleString("en-US", { timeZone: "America/Lima" })
+);
+const baseDate = new Date(2026, 3, 2);
+const diff = now.getTime() - baseDate.getTime();
+const dayCount = Math.floor(diff / (1000 * 60 * 60 * 24));
+const index = Math.abs(dayCount) % verses.length;
+const dailyVerse = verses[index] ?? verses[0];
 ---
-<VerseCard texto="" referencia="" />
 
-<script>
-  import { verses } from "@/data/verses";
-
-  function getDailyVerse() {
-    const now = new Date(
-      new Date().toLocaleString("en-US", { timeZone: "America/Lima" })
-    );
-    const baseDate = new Date(2026, 3, 2);
-    const diff = now.getTime() - baseDate.getTime();
-    const dayCount = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const index = dayCount % verses.length;
-    return verses[index];
-  }
-
-  const { texto, referencia } = getDailyVerse();
-
-  document.querySelector("blockquote")!.textContent = texto;
-  document.querySelector("[data-referencia]")!.textContent = referencia;
-</script>
+<VerseCard texto={dailyVerse.texto} referencia={dailyVerse.referencia} />

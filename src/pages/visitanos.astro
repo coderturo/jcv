@@ -1,7 +1,128 @@
 ---
-import Layout from '@/layouts/Layout.astro';
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/ui/Header";
+import MapComponent from "@/components/ui/MapSection";
+import { Clock, MapPin, Heart, Sparkles, HelpCircle } from "lucide-react";
 
+const bgHeroVisitanos = "/images/ExteriorIgle.jpg";
 ---
-<Layout>
 
+<Layout
+  title="Planifica tu Visita · Jesús Camino de Vida Callao"
+  description="Todo lo que necesitas saber para tu primera visita a Jesús Camino de Vida en Bellavista, Callao. Horarios, ubicación y qué esperar."
+>
+  {/* Hero Enmarcado con Imagen de Fondo, Header y Contenido (Igual al Hero Principal) */}
+  <section id="top" class="p-2 sm:p-4 md:pt-6 md:px-6 relative">
+    <div
+      class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/10
+             min-h-[70vh] md:min-h-[78vh] flex flex-col justify-between bg-cover bg-center"
+      style={`background-image: url('${bgHeroVisitanos}')`}
+    >
+      <!-- Overlay degradado para legibilidad garantizada -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85 z-0"></div>
+
+      <Header client:load theme="dark" currentPath="/visitanos" />
+
+      <!-- Contenido Central del Hero -->
+      <div class="relative z-10 flex flex-1 items-center justify-center text-center px-4 sm:px-6 py-20 md:py-24">
+        <div class="max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider mb-6 border border-white/20">
+            <Sparkles className="size-3.5 text-[#E6D3C2]" />
+            Te Esperamos con los Brazos Abiertos
+          </div>
+
+          <h1 class="font-heading font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight">
+            ¿Primera vez en JCV?
+          </h1>
+
+          <p class="mt-6 text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
+            Sabemos que visitar una iglesia por primera vez puede generar preguntas. Aquí te contamos exactamente qué esperar para que te sientas como en casa desde el primer momento.
+          </p>
+        </div>
+      </div>
+
+      <!-- Barra Inferior de Datos Clave (Horarios y Ubicación) -->
+      <div class="relative z-10 border-t border-white/15 bg-black/40 backdrop-blur-md px-6 py-4">
+        <div class="mx-auto max-w-6xl flex flex-wrap items-center justify-around gap-4 text-white/90 text-xs sm:text-sm">
+          <div class="flex items-center gap-2">
+            <Clock className="size-4 text-[#E6D3C2]" />
+            <span><strong>Domingos:</strong> 10:00 a.m. y 7:30 p.m. · <strong>Mar & Jue:</strong> 7:30 p.m.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <MapPin className="size-4 text-[#E6D3C2]" />
+            <span>Parque Ricardo Palma 144, Bellavista, Callao</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="py-12 sm:py-16">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      {/* Qué esperar en 3 pilares */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-white border border-black/5 shadow-xs">
+          <div class="size-10 rounded-xl bg-[#BA9A7D]/15 text-[#BA9A7D] flex items-center justify-center mb-4">
+            <Heart className="size-5" />
+          </div>
+          <h2 class="font-heading font-bold text-lg text-foreground">Ambiente Familiar</h2>
+          <p class="mt-2 text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
+            Ven tal como eres. No hay código de vestimenta estricto. Nos importa que estés cómodo y que disfrutes de un tiempo en familia.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-black/5 shadow-xs">
+          <div class="size-10 rounded-xl bg-[#BA9A7D]/15 text-[#BA9A7D] flex items-center justify-center mb-4">
+            <Clock className="size-5" />
+          </div>
+          <h2 class="font-heading font-bold text-lg text-foreground">Servicios Dinámicos</h2>
+          <p class="mt-2 text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
+            Tiempo de alabanza congregacional, oración y una palabra bíblica práctica aplicable a los desafíos diarios de tu vida.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-black/5 shadow-xs">
+          <div class="size-10 rounded-xl bg-[#BA9A7D]/15 text-[#BA9A7D] flex items-center justify-center mb-4">
+            <MapPin className="size-5" />
+          </div>
+          <h2 class="font-heading font-bold text-lg text-foreground">Fácil Acceso</h2>
+          <p class="mt-2 text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
+            A solo pasos de la Av. Colonial y Av. Faucett en Bellavista. Seguridad y parque alrededor del templo.
+          </p>
+        </div>
+      </div>
+
+      {/* Mapa en la página de visita */}
+      <div class="mt-16">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-6">
+          Nuestra Ubicación en Bellavista
+        </h2>
+        <MapComponent client:idle />
+      </div>
+
+      {/* Preguntas Frecuentes Rápidas */}
+      <div class="mt-16 pt-12 border-t border-black/10">
+        <h2 class="font-heading text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+          <HelpCircle className="size-5 text-[#BA9A7D]" />
+          Preguntas Frecuentes
+        </h2>
+
+        <div class="space-y-4 font-body">
+          <div class="p-5 rounded-xl bg-white/60 border border-black/5">
+            <h3 class="font-heading font-semibold text-base text-foreground">¿A qué hora debo llegar?</h3>
+            <p class="mt-1 text-sm text-foreground/75">
+              Te recomendamos llegar 10 a 15 minutos antes de la reunión para encontrar buen sitio y recibir una cordial bienvenida.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-white/60 border border-black/5">
+            <h3 class="font-heading font-semibold text-base text-foreground">¿Tienen programas para niños o jóvenes?</h3>
+            <p class="mt-1 text-sm text-foreground/75">
+              ¡Sí! Contamos con espacios de enseñanza y actividades adaptadas para niños durante los servicios dominicales y reuniones de jóvenes los sábados.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
