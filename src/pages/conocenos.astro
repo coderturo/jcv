@@ -183,14 +183,24 @@ const MINISTERIOS = [
 
 // Equipo de Liderazgo y Junta Directiva
 const LIDERAZGO = [
+    {
+    nombre: "Ps. Ernesto Gamboa Herrera",
+    cargo: "Pastor Fundador en Memoria",
+    detalle:
+      "1940 – 2014. Sembrador incansable que entregó sus ahorros personales, esfuerzo y vida para ver levantado este templo en honor a Dios. Su legado de fe permanece vivo.",
+    placeholder: "EG",
+    imagen: "/images/pastor.webp", 
+    isHomenaje: true,
+  },
+
   {
     nombre: "Psa. América Dios de Gamboa",
     cargo: "Pastora Principal y Fundadora",
     detalle:
       "Fundadora de la congregación desde 1991. Graduada de ICI Internacional y ministra acreditada de las Asambleas de Dios del Perú, guiando la visión pastoral con amor y sabiduría.",
     placeholder: "PA",
-    imagen: null, // Placeholder para imagen real
-  },
+    imagen: "/images/legado.webp", },
+
   {
     nombre: "Psa. Martha Gamboa Dios",
     cargo: "Asistente Pastoral & Educación",
@@ -199,6 +209,7 @@ const LIDERAZGO = [
     placeholder: "PM",
     imagen: null,
   },
+
   {
     nombre: "Hna. Sonia Urbina",
     cargo: "Secretaria de la Junta Directiva",
@@ -207,6 +218,7 @@ const LIDERAZGO = [
     placeholder: "SU",
     imagen: null,
   },
+
   {
     nombre: "Hno. Carlos Toledo",
     cargo: "Tesorero de la Junta Directiva",
@@ -223,15 +235,7 @@ const LIDERAZGO = [
     placeholder: "MC",
     imagen: null,
   },
-  {
-    nombre: "Ps. Ernesto Gamboa Herrera (†)",
-    cargo: "Pastor Fundador en Memoria",
-    detalle:
-      "1940 – 2014. Sembrador incansable que entregó sus ahorros personales, esfuerzo y vida para ver levantado este templo en honor a Dios. Su legado de fe permanece vivo.",
-    placeholder: "EG",
-    imagen: null,
-    isHomenaje: true,
-  },
+
 ];
 ---
 
@@ -425,70 +429,9 @@ const LIDERAZGO = [
        ========================================================================= */}
     <DoctrinasSection client:visible />
 
-    {/* =========================================================================
-        SECCIÓN 3: NUESTROS MINISTERIOS
-       ========================================================================= */}
-    <section
-      id="ministerios"
-      class="py-16 sm:py-24 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
-    >
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#7D5836]/15 text-[#5A3C1E] text-xs font-bold uppercase tracking-wider mb-3">
-          <Layers className="size-3.5" />
-          Vida en Comunidad
-        </span>
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
-          Nuestros Ministerios
-        </h2>
-        <p class="mt-3 text-base sm:text-lg text-foreground/80 font-body">
-          Espacios diseñados para caminar juntos en fe, cuidar de cada etapa de
-          la vida y servir con amor al prójimo.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {MINISTERIOS.map((min) => (
-          <div
-            key={min.id}
-            class="group rounded-3xl overflow-hidden bg-white border border-black/5 shadow-xs hover:shadow-lg transition-all flex flex-col"
-          >
-            <div class="relative h-56 sm:h-64 overflow-hidden bg-[#EFE4D8]">
-              <img
-                src={min.imagen}
-                alt={min.nombre}
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#7D5836] text-white text-xs font-bold tracking-wide shadow-sm">
-                {min.badge}
-              </div>
-            </div>
-
-            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-4">
-              <div class="space-y-2">
-                <h3 class="font-heading text-xl font-bold text-foreground">
-                  {min.nombre}
-                </h3>
-                <p class="text-xs font-semibold text-[#5A3C1E]">
-                  Responsables: {min.lideres}
-                </p>
-                <p class="text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
-                  {min.descripcion}
-                </p>
-              </div>
-
-              <div class="pt-3 border-t border-black/5 flex items-center justify-between text-xs font-semibold text-[#7D5836]">
-                <span>Reuniones y formación activa</span>
-                <ChevronRight className="size-4 transition-transform group-hover:translate-x-1" />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
 
     {/* =========================================================================
-        SECCIÓN 4: LIDERAZGO Y JUNTA DIRECTIVA
+        SECCIÓN 3: LIDERAZGO Y JUNTA DIRECTIVA
        ========================================================================= */}
     <section
       id="liderazgo"
@@ -513,52 +456,61 @@ const LIDERAZGO = [
           {LIDERAZGO.map((lider) => (
             <div
               key={lider.nombre}
-              class={`p-6 sm:p-7 rounded-3xl border transition-all text-center flex flex-col items-center justify-between ${
+              class={`rounded-3xl border transition-all overflow-hidden flex flex-col ${
                 lider.isHomenaje
                   ? "bg-[#BA9A7D]/10 border-[#BA9A7D]/40"
-                  : "bg-white border-black/5 shadow-xs hover:border-[#7D5836]/30"
+                  : "bg-white border-black/5 shadow-xs hover:shadow-md hover:border-[#7D5836]/20"
               }`}
             >
-              <div class="flex flex-col items-center space-y-3">
-                {/* Avatar Fotográfico / Placeholder con Iniciales */}
-                <div class="relative size-24 sm:size-28 rounded-full overflow-hidden bg-[#7D5836]/15 border-3 border-white shadow-md flex items-center justify-center">
-                  {lider.imagen ? (
-                    <img
-                      src={lider.imagen}
-                      alt={lider.nombre}
-                      class="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div class="font-heading font-black text-2xl sm:text-3xl text-[#7D5836] select-none">
+              {/* Foto a pantalla completa con aspect-ratio fijo */}
+              <div class="relative w-full aspect-[4/3] overflow-hidden bg-[#EFE4D8]">
+                {lider.imagen ? (
+                  <img
+                    src={lider.imagen}
+                    alt={lider.nombre}
+                    class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#EFE4D8] to-[#DDD0C2]">
+                    <span class="font-heading font-black text-5xl sm:text-6xl text-[#7D5836]/40 select-none tracking-tight">
                       {lider.placeholder}
-                    </div>
-                  )}
-                  {lider.isHomenaje && (
-                    <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[10px] font-bold py-0.5 uppercase tracking-wider">
-                      En Memoria
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  <h3 class="font-heading font-bold text-base sm:text-lg text-foreground">
-                    {lider.nombre}
-                  </h3>
-                  <span class="inline-block mt-0.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#7D5836]/10 text-[#5A3C1E]">
-                    {lider.cargo}
+                    </span>
+                  </div>
+                )}
+                {/* Badge de cargo flotante sobre la foto */}
+                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent px-4 pt-8 pb-3">
+                  <span class={`inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                    lider.isHomenaje
+                      ? "bg-[#BA9A7D] text-white"
+                      : "bg-[#7D5836] text-white"
+                  }`}>
+                    {lider.isHomenaje ? "En Memoria" : lider.cargo}
                   </span>
                 </div>
-
-                <p class="text-xs text-foreground/75 leading-relaxed font-body">
-                  {lider.detalle}
-                </p>
               </div>
 
-              <div class="mt-5 pt-3 w-full border-t border-black/5 text-[11px] text-[#5A3C1E] font-medium">
-                {lider.isHomenaje
-                  ? "Pionero Fundador (1940 – 2014)"
-                  : "Liderazgo Activo"}
+              {/* Contenido textual abajo */}
+              <div class="p-5 sm:p-6 flex flex-col gap-2 flex-1">
+                <h3 class="font-heading font-bold text-base sm:text-lg text-foreground leading-snug">
+                  {lider.nombre}
+                </h3>
+
+                {lider.isHomenaje && (
+                  <span class="inline-block self-start px-3 py-0.5 rounded-full text-xs font-bold bg-[#BA9A7D]/20 text-[#8C5E2A]">
+                    {lider.cargo}
+                  </span>
+                )}
+
+                <p class="text-xs sm:text-sm text-foreground/70 leading-relaxed font-body flex-1">
+                  {lider.detalle}
+                </p>
+
+                {lider.isHomenaje && (
+                  <div class="mt-2 pt-3 border-t border-[#BA9A7D]/30 text-[11px] font-semibold text-[#8C5E2A] tracking-wide uppercase">
+                    Pionero Fundador · 1940 – 2014
+                  </div>
+                )}
               </div>
             </div>
           ))}
