@@ -52,9 +52,11 @@ export default function Header({ theme = "auto", currentPath = "" }: HeaderProps
           }`}
           aria-label="Jesús Camino de Vida - Inicio"
         >
-          <div className="size-9 rounded-xl bg-[#7D5836] flex items-center justify-center shadow-md font-heading font-black text-white text-base tracking-wider shrink-0 group-hover:scale-105 transition-transform">
-            JCV
-          </div>
+          <img
+            src="/images/lapd-logo.webp"
+            alt="Logo Las Asambleas de Dios del Perú"
+            className="h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform"
+          />
           <div className="flex flex-col text-left">
             <span
               className={`font-heading font-bold text-base tracking-wide leading-none ${
@@ -138,10 +140,16 @@ export default function Header({ theme = "auto", currentPath = "" }: HeaderProps
 
           <div className="relative h-full w-full flex flex-col justify-between px-8 py-10">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 text-white">
-                <div className="size-9 rounded-xl bg-[#7D5836] flex items-center justify-center font-heading font-black text-white text-base">
-                  JCV
-                </div>
+              <a
+                href="/"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 text-white"
+              >
+                <img
+                  src="/images/lapd-logo.webp"
+                  alt="Logo Las Asambleas de Dios del Perú"
+                  className="h-10 w-auto object-contain shrink-0"
+                />
                 <div className="flex flex-col text-left">
                   <span className="font-heading font-bold text-white text-base leading-none">
                     Jesús Camino de Vida
@@ -150,7 +158,7 @@ export default function Header({ theme = "auto", currentPath = "" }: HeaderProps
                     Callao · Perú
                   </span>
                 </div>
-              </div>
+              </a>
               <button
                 className="rounded-xl p-2 text-white/80 hover:text-white bg-white/10 cursor-pointer"
                 onClick={() => setOpen(false)}
