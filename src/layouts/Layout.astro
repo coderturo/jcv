@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "@/components/sections/Footer.astro";
+import ScrollToTop from "../components/ScrollToTop";
 
 interface Props {
   title?: string;
@@ -39,6 +40,7 @@ const {
   <body class="bg-background text-foreground antialiased selection:bg-[#BA9A7D] selection:text-white">
     <slot />
     <Footer />
+    <ScrollToTop client:load />
   </body>
 </html>
 
