@@ -50,27 +50,34 @@ export default function Header({ theme = "auto", currentPath = "" }: HeaderProps
           className={`flex items-center gap-3 group select-none z-10 ${
             isLight ? "text-foreground" : "text-white"
           }`}
-          aria-label="Jesús Camino de Vida - Inicio"
+          aria-label="Las Asambleas de Dios del Perú - Iglesia Jesús Camino de Vida - Inicio"
         >
           <img
             src="/images/lapd-logo.webp"
             alt="Logo Las Asambleas de Dios del Perú"
-            className="h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform"
+            className="h-14 md:h-20 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform"
           />
-          <div className="flex flex-col text-left">
+          <div className="flex flex-col text-left leading-tight">
             <span
-              className={`font-heading font-bold text-base tracking-wide leading-none ${
-                isLight ? "text-foreground" : "text-white"
-              }`}
-            >
-              Jesús Camino de Vida
-            </span>
-            <span
-              className={`text-xs font-semibold tracking-wider uppercase mt-1 ${
+              className={`text-[0.55rem] md:text-[0.65rem] font-semibold tracking-[0.12em] uppercase ${
                 isLight ? "text-[#7D5836]" : "text-white/80"
               }`}
             >
-              Callao · Perú
+              Iglesia Cristiana Evangélica Pentecostal
+            </span>
+            <span
+              className={`font-heading font-bold text-sm md:text-lg tracking-wide uppercase ${
+                isLight ? "text-foreground" : "text-white"
+              }`}
+            >
+              Las Asambleas de Dios del Perú
+            </span>
+            <span
+              className={`text-xs md:text-sm font-semibold ${
+                isLight ? "text-foreground/80" : "text-white/90"
+              }`}
+            >
+              Iglesia "Jesús Camino de Vida"
             </span>
           </div>
         </a>
@@ -148,14 +155,17 @@ export default function Header({ theme = "auto", currentPath = "" }: HeaderProps
                 <img
                   src="/images/lapd-logo.webp"
                   alt="Logo Las Asambleas de Dios del Perú"
-                  className="h-10 w-auto object-contain shrink-0"
+                  className="h-12 w-auto object-contain shrink-0"
                 />
-                <div className="flex flex-col text-left">
-                  <span className="font-heading font-bold text-white text-base leading-none">
-                    Jesús Camino de Vida
+                <div className="flex flex-col text-left leading-tight">
+                  <span className="text-[0.55rem] font-semibold tracking-[0.12em] uppercase text-[#E6D3C2]">
+                    Iglesia Cristiana Evangélica Pentecostal
                   </span>
-                  <span className="text-xs text-[#E6D3C2] font-semibold tracking-wider uppercase mt-0.5">
-                    Callao · Perú
+                  <span className="font-heading font-bold text-white text-sm tracking-wide uppercase">
+                    Las Asambleas de Dios del Perú
+                  </span>
+                  <span className="text-xs font-semibold text-white/90">
+                    Iglesia "Jesús Camino de Vida"
                   </span>
                 </div>
               </a>
