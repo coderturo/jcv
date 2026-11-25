@@ -1,52 +1,147 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/ui/Header";
-import MapComponent from "@/components/ui/MapSection";
-import { Clock, MapPin, Heart, Sparkles, HelpCircle } from "lucide-react";
+import { Clock, MapPin, Sparkles, BookOpen, Users, Heart, ChevronDown, MessageCircle, Car, Bus, ArrowRight, Shirt, Baby } from "lucide-react";
+
+// ─── DATOS CENTRALIZADOS ──────────────────────────────────────────────────────
 
 const bgHeroVisitanos = "/images/ExteriorIgle.jpg";
+
+// TODO: confirmar hora del martes con la directiva (7:30 PM según el cartel)
+// TODO: confirmar hora del jueves con la directiva (7:30 PM según el cartel)
+// TODO: confirmar que varones del sábado son a las 4:30 PM
+const SERVICIOS_PRINCIPALES = [
+  {
+    dia: "Martes",
+    nombre: "Reunión de Oración",
+    hora: "7:30 PM", // TODO: confirmar hora
+    descripcion: "Tiempo de intercesión y oración por peticiones personales y congregacionales.",
+    icon: "oracion",
+    nota: "Incluye oración por peticiones.",
+    accent: "#7D5836",   // naranja tostado — acento dinámico
+  },
+  {
+    dia: "Jueves",
+    nombre: "Estudio Bíblico",
+    hora: "7:30 PM", // TODO: confirmar hora
+    descripcion: "Profundizamos en la Palabra. Este día tiene una sola alabanza para dar más espacio al estudio.",
+    icon: "biblia",
+    nota: "Una alabanza, más tiempo en la Palabra.",
+    accent: "#7D5836",   // marrón principal
+  },
+  {
+    dia: "Domingo mañana",
+    nombre: "Escuela Dominical",
+    hora: "10:00 AM",
+    descripcion: "Culto familiar con Escuela Dominical para los niños al mismo tiempo.",
+    icon: "familia",
+    nota: "Los niños tienen su propia clase.",
+    accent: "#7D5836",   // acento
+  },
+  {
+    dia: "Domingo noche",
+    nombre: "Culto Evangelístico",
+    hora: "7:00 PM",
+    descripcion: "Nuestro culto principal de alabanza, predicación y encuentro con Dios.",
+    icon: "culto",
+    nota: "Nuestro culto principal de la semana.",
+    accent: "#7D5836",
+  },
+];
+
+const OTROS_MINISTERIOS = [
+  { grupo: "Damas", dia: "Viernes", hora: "7:30 PM" },
+  { grupo: "Jóvenes", dia: "Sábados", hora: "7:30 PM" },
+  { grupo: "Varones", dia: "Sábados", hora: "4:30 PM" }, // TODO: confirmar si varones son a las 4:30 PM
+];
+
+const PASOS_PRIMERA_VEZ = [
+  {
+    numero: "01",
+    titulo: "Llegada",
+    descripcion: "Llega 10 minutos antes. Hay estacionamiento frente a la iglesia y el Parque Ricardo Palma está al costado.",
+    accent: "#C4813A",
+  },
+  {
+    numero: "02",
+    titulo: "Bienvenida",
+    descripcion: "Alguien te recibe en la puerta. No necesitas hacer nada especial: simplemente entra y siéntate donde quieras.",
+    accent: "#7D5836",
+  },
+  {
+    numero: "03",
+    titulo: "El culto",
+    descripcion: "Dura alrededor de 2 horas. Nadie te va a pedir tus datos las primeras veces. Participa a tu ritmo.",
+    accent: "#C4813A",
+  },
+  {
+    numero: "04",
+    titulo: "Despedida",
+    descripcion: "Al finalizar, nuestros hermanos están disponibles para saludarte, conversar o responder cualquier pregunta.",
+    accent: "#7D5836",
+  },
+];
+
+// TODO: confirmar normas de convivencia oficiales con la directiva
+const NORMAS_CONVIVENCIA = [
+  "Llega puntual: el culto comienza a la hora indicada.",
+  "Silencia tu celular antes de entrar al salón.",
+  "Mantén un ambiente de respeto y recogimiento durante la predicación.",
+  "Los niños menores deben estar acompañados por un adulto responsable.",
+  "Trata a todos con amabilidad y fraternidad, como miembros de una misma familia.",
+];
+
+const FAQS = [
+  { pregunta: "¿Cuánto dura un culto?", respuesta: "Aproximadamente 2 horas. Incluye alabanza, oración y una palabra bíblica." },
+  { pregunta: "¿Cómo debo vestir?", respuesta: "No hay un código de vestimenta estricto. La regla general es vestir con respeto, modestia y decoro, acorde a un espacio de culto. Ven tal como eres." },
+  { pregunta: "¿Necesito llevar Biblia?", respuesta: "Es bienvenido traer la tuya. Usamos la Reina-Valera 1960 como base, pero no es obligatorio. También puedes usar una app en tu celular." },
+  { pregunta: "¿Me pedirán mis datos?", respuesta: "No. Las primeras veces nadie te va a pedir información personal. Puedes visitar con total tranquilidad." },
+  { pregunta: "¿Hay algo para mis hijos?", respuesta: "¡Sí! Los domingos por la mañana (10:00 AM) los niños tienen su propia Escuela Dominical con enseñanza adaptada a su edad." },
+  { pregunta: "¿Los servicios se transmiten en línea?", respuesta: "Por ahora todos nuestros servicios son presenciales. Te esperamos en el templo." },
+  { pregunta: "¿Qué pasa el martes?", respuesta: "El martes tenemos Reunión de Oración a las 7:30 PM. Es un tiempo especial de intercesión donde puedes presentar tus peticiones a Dios junto a la congregación." },
+  { pregunta: "¿Dónde puedo estacionar?", respuesta: "Puedes estacionar directamente frente a la iglesia, en el área del Parque Ricardo Palma. Hay espacio disponible en la calle." },
+];
+
+const WHATSAPP_NUMBER = "51914258692";
+const WHATSAPP_MSG = encodeURIComponent("Hola, es mi primera vez y quisiera visitarlos.");
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`;
 ---
 
 <Layout
   title="Planifica tu Visita · Jesús Camino de Vida Callao"
-  description="Todo lo que necesitas saber para tu primera visita a Jesús Camino de Vida en Bellavista, Callao. Horarios, ubicación y qué esperar."
+  description="Todo lo que necesitas saber para tu primera visita a Jesús Camino de Vida en Bellavista, Callao. Horarios, qué esperar, cómo llegar y preguntas frecuentes."
 >
-  {/* Hero Enmarcado con Imagen de Fondo, Header y Contenido (Igual al Hero Principal) */}
+
+  {/* ── HERO (sin cambios) ─────────────────────────────────────────────────── */}
   <section id="top" class="p-2 sm:p-4 md:pt-6 md:px-6 relative">
     <div
       class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/10
              min-h-[70vh] md:min-h-[78vh] flex flex-col justify-between bg-cover bg-center"
       style={`background-image: url('${bgHeroVisitanos}')`}
     >
-      <!-- Overlay degradado para legibilidad garantizada -->
       <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-black/85 z-0"></div>
-
       <Header client:load theme="dark" currentPath="/visitanos" />
 
-      <!-- Contenido Central del Hero -->
       <div class="relative z-10 flex flex-1 items-center justify-center text-center px-4 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-20 md:pt-36 md:pb-24">
         <div class="max-w-3xl mx-auto">
           <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider mb-6 border border-white/20">
             <Sparkles className="size-3.5 text-[#E6D3C2]" />
             Te Esperamos con los Brazos Abiertos
           </div>
-
           <h1 class="font-heading font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight">
             ¿Primera vez en JCV?
           </h1>
-
           <p class="mt-6 text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
             Sabemos que visitar una iglesia por primera vez puede generar preguntas. Aquí te contamos exactamente qué esperar para que te sientas como en casa desde el primer momento.
           </p>
         </div>
       </div>
 
-      <!-- Barra Inferior de Datos Clave (Horarios y Ubicación) -->
       <div class="relative z-10 border-t border-white/15 bg-black/40 backdrop-blur-md px-6 py-4">
         <div class="mx-auto max-w-6xl flex flex-wrap items-center justify-around gap-4 text-white/90 text-xs sm:text-sm">
           <div class="flex items-center gap-2">
             <Clock className="size-4 text-[#E6D3C2]" />
-            <span><strong>Domingos:</strong> 10:00 a.m. y 7:30 p.m. · <strong>Mar & Jue:</strong> 7:30 p.m.</span>
+            <span><strong>Domingos:</strong> 10:00 a.m. y 7:00 p.m. · <strong>Mar &amp; Jue:</strong> 7:30 p.m.</span>
           </div>
           <div class="flex items-center gap-2">
             <MapPin className="size-4 text-[#E6D3C2]" />
@@ -57,72 +152,552 @@ const bgHeroVisitanos = "/images/ExteriorIgle.jpg";
     </div>
   </section>
 
-  <main class="py-12 sm:py-16">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      {/* Qué esperar en 3 pilares */}
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-white border border-black/5 shadow-xs">
-          <div class="size-10 rounded-xl bg-[#BA9A7D]/15 text-[#BA9A7D] flex items-center justify-center mb-4">
-            <Heart className="size-5" />
-          </div>
-          <h2 class="font-heading font-bold text-lg text-foreground">Ambiente Familiar</h2>
-          <p class="mt-2 text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
-            Ven tal como eres. No hay código de vestimenta estricto. Nos importa que estés cómodo y que disfrutes de un tiempo en familia.
+  <main>
+
+    {/* ── 2. NUESTROS SERVICIOS — banda crema con cards coloreadas ─────────── */}
+    <section id="servicios" class="py-16 sm:py-20 bg-[#F5EBE1] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+
+        <div class="text-center mb-12">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#7D5836]/15 text-[#7D5836] text-xs font-bold uppercase tracking-wider mb-3">
+            <Clock className="size-3.5" /> Horarios
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-foreground">Nuestros servicios</h2>
+          <p class="mt-3 text-foreground/60 text-sm sm:text-base max-w-xl mx-auto font-body leading-relaxed">
+            Todos presenciales, aproximadamente 2 horas. Llega 10 minutos antes.
           </p>
         </div>
 
-        <div class="p-6 rounded-2xl bg-white border border-black/5 shadow-xs">
-          <div class="size-10 rounded-xl bg-[#BA9A7D]/15 text-[#BA9A7D] flex items-center justify-center mb-4">
-            <Clock className="size-5" />
-          </div>
-          <h2 class="font-heading font-bold text-lg text-foreground">Servicios Dinámicos</h2>
-          <p class="mt-2 text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
-            Tiempo de alabanza congregacional, oración y una palabra bíblica práctica aplicable a los desafíos diarios de tu vida.
-          </p>
+        <!-- Cards con cabecera de color (el dinamismo de la referencia) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {SERVICIOS_PRINCIPALES.map((s) => (
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col">
+              <!-- Cabecera de color -->
+              <div class="px-5 pt-5 pb-4" style={`background-color: ${s.accent}`}>
+                <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-white/70 mb-2">{s.dia}</span>
+                <p class="font-heading font-bold text-3xl text-white leading-none">{s.hora}</p>
+              </div>
+              <!-- Cuerpo -->
+              <div class="px-5 py-4 flex flex-col flex-1">
+                <h3 class="font-heading font-bold text-base text-foreground mb-2">{s.nombre}</h3>
+                <p class="text-xs text-foreground/60 font-body leading-relaxed flex-1">{s.descripcion}</p>
+                <p class="mt-4 pt-3 border-t border-black/5 text-[11px] font-semibold uppercase tracking-wide" style={`color: ${s.accent}`}>
+                  {s.nota}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div class="p-6 rounded-2xl bg-white border border-black/5 shadow-xs">
-          <div class="size-10 rounded-xl bg-[#BA9A7D]/15 text-[#BA9A7D] flex items-center justify-center mb-4">
-            <MapPin className="size-5" />
+        <!-- Franja compacta: otros ministerios -->
+        <div class="mt-8 rounded-2xl bg-white border border-[#E6D3C2] px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 shadow-sm">
+          <p class="font-heading font-bold text-sm text-[#7D5836] uppercase tracking-wider shrink-0">Otros días</p>
+          <div class="flex flex-wrap gap-4 flex-1">
+            {OTROS_MINISTERIOS.map((m) => (
+              <div class="flex items-center gap-2 text-sm font-body text-foreground/80">
+                <span class="size-2 rounded-full bg-[#C4813A] shrink-0"></span>
+                <span><strong class="font-semibold text-foreground">{m.grupo}</strong> · {m.dia} {m.hora}</span>
+              </div>
+            ))}
           </div>
-          <h2 class="font-heading font-bold text-lg text-foreground">Fácil Acceso</h2>
-          <p class="mt-2 text-xs sm:text-sm text-foreground/75 leading-relaxed font-body">
-            A solo pasos de la Av. Colonial y Av. Faucett en Bellavista. Seguridad y parque alrededor del templo.
-          </p>
+          <a href="/#ministerios" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#7D5836] hover:text-[#69492C] transition-colors whitespace-nowrap group">
+            Ver ministerios <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </a>
         </div>
+
       </div>
+    </section>
 
-      {/* Mapa en la página de visita */}
-      <div class="mt-16">
-        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-6">
-          Nuestra Ubicación en Bellavista
-        </h2>
-        <MapComponent client:idle />
+    {/* ── 3. QUÉ ESPERAR — fondo arena + cards cream & verde salvia (estilo exacto a la referencia) ── */}
+    <section id="que-esperar" class="py-16 sm:py-24 bg-[#B7987C] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+
+        <div class="text-center mb-12 sm:mb-16">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-xs">
+            Tu primera vez
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white tracking-tight">
+            Qué esperar cuando llegues
+          </h2>
+          <p class="mt-4 text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-body leading-relaxed">
+            Queremos que te sientas como en casa desde el primer minuto. Sin sorpresas ni compromisos: así se vive un día con nosotros.
+          </p>
+        </div>
+
+        <!-- Cards estilo referencia: fondo crema y verde salvia (#718B68) alternados con botones tostados -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {PASOS_PRIMERA_VEZ.map((paso, i) => {
+            const isGreen = i % 2 === 1;
+            return (
+              <div
+                class={`rounded-3xl p-7 sm:p-8 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                  isGreen
+                    ? "bg-[#718B68] text-white"
+                    : "bg-[#F5EBE1] text-foreground"
+                }`}
+              >
+                <!-- Icono superior -->
+                <div class={`size-12 rounded-2xl flex items-center justify-center mb-5 ${
+                  isGreen ? "bg-white/15 text-white" : "bg-[#B7987C]/20 text-[#7D5836]"
+                }`}>
+                  {i === 0 && <Car className="size-6" />}
+                  {i === 1 && <Users className="size-6" />}
+                  {i === 2 && <BookOpen className="size-6" />}
+                  {i === 3 && <Heart className="size-6" />}
+                </div>
+
+                <!-- Título -->
+                <h3 class={`font-heading font-bold text-lg sm:text-xl mb-3 leading-snug ${
+                  isGreen ? "text-white" : "text-foreground"
+                }`}>
+                  {paso.titulo}
+                </h3>
+
+                <!-- Descripción -->
+                <p class={`text-sm font-body leading-relaxed flex-1 mb-6 ${
+                  isGreen ? "text-white/85" : "text-foreground/75"
+                }`}>
+                  {paso.descripcion}
+                </p>
+
+                <!-- Botón / badge marrón tostado como en la imagen de referencia -->
+                <div class="mt-auto inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#A58365] hover:bg-[#947457] text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors select-none">
+                  Paso {paso.numero}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Estructura del culto — card cream ancha integrada -->
+        <div class="bg-[#F5EBE1] rounded-3xl p-6 sm:p-9 shadow-md">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <h3 class="font-heading font-bold text-lg sm:text-xl text-foreground flex items-center gap-3">
+              <span class="size-9 rounded-xl bg-[#718B68] text-white flex items-center justify-center shadow-xs">
+                <Clock className="size-5" />
+              </span>
+              Estructura general de un culto
+            </h3>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#718B68] bg-[#718B68]/15 px-3 py-1 rounded-full w-fit">
+              Aprox. 2 horas
+            </span>
+          </div>
+
+          <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {["Oración de bienvenida", "Lectura de la Palabra", "Tres alabanzas", "Predicación y mensaje"].map((item, i) => (
+              <li class="flex items-center gap-3 bg-white rounded-2xl p-4 shadow-xs border border-black/5">
+                <span class="size-7 rounded-xl bg-[#718B68] text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
+                  {i + 1}
+                </span>
+                <span class="text-sm font-medium font-body text-foreground/90">{item}</span>
+              </li>
+            ))}
+          </ol>
+          <p class="mt-4 text-xs text-foreground/60 font-body italic">
+            * El jueves dedicamos una sola alabanza al inicio para profundizar más tiempo en el estudio bíblico.
+          </p>
+        </div>
+
       </div>
+    </section>
 
-      {/* Preguntas Frecuentes Rápidas */}
-      <div class="mt-16 pt-12 border-t border-black/10">
-        <h2 class="font-heading text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
-          <HelpCircle className="size-5 text-[#BA9A7D]" />
-          Preguntas Frecuentes
-        </h2>
+    {/* ── 4. QUÉ LLEVAR Y CÓMO VESTIR — blanco limpio ───────────────────────── */}
+    <section id="que-llevar" class="py-16 sm:py-20 bg-white px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
 
-        <div class="space-y-4 font-body">
-          <div class="p-5 rounded-xl bg-white/60 border border-black/5">
-            <h3 class="font-heading font-semibold text-base text-foreground">¿A qué hora debo llegar?</h3>
-            <p class="mt-1 text-sm text-foreground/75">
-              Te recomendamos llegar 10 a 15 minutos antes de la reunión para encontrar buen sitio y recibir una cordial bienvenida.
+        <div class="text-center mb-12">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C4813A]/10 text-[#C4813A] text-xs font-bold uppercase tracking-wider mb-3">
+            Preparación
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-foreground">Qué llevar y cómo vestir</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Biblia: card con borde acento superior -->
+          <div class="rounded-2xl border border-black/5 shadow-sm overflow-hidden">
+            <div class="h-1.5 bg-[#C4813A]"></div>
+            <div class="p-7 flex gap-5">
+              <div class="size-12 rounded-xl bg-[#C4813A]/10 flex items-center justify-center shrink-0">
+                <BookOpen className="size-6 text-[#C4813A]" />
+              </div>
+              <div>
+                <h3 class="font-heading font-bold text-lg text-foreground mb-2">Tu Biblia</h3>
+                <p class="text-sm text-foreground/65 font-body leading-relaxed">
+                  Si tienes una, tráela. Usamos la <strong class="text-foreground/80">Reina-Valera 1960</strong> como base en nuestros estudios. Si no tienes, también puedes usar una app en tu celular, o simplemente escuchar.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vestimenta: card con borde marrón superior -->
+          <div class="rounded-2xl border border-black/5 shadow-sm overflow-hidden">
+            <div class="h-1.5 bg-[#7D5836]"></div>
+            <div class="p-7 flex gap-5">
+              <div class="size-12 rounded-xl bg-[#7D5836]/10 flex items-center justify-center shrink-0">
+                <Shirt className="size-6 text-[#7D5836]" />
+              </div>
+              <div>
+                <h3 class="font-heading font-bold text-lg text-foreground mb-2">Vestimenta</h3>
+                <p class="text-sm text-foreground/65 font-body leading-relaxed">
+                  No hay un código estricto. La regla general es vestir con <strong class="text-foreground/80">respeto, modestia y decoro</strong>, acorde a un espacio de culto. Ven tal como eres: lo importante es que estés presente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {/* ── 5. PARA TU FAMILIA — banda crema con foto ─────────────────────────── */}
+    <section id="familia" class="py-16 sm:py-20 bg-[#F5EBE1] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#7D5836]/12 text-[#7D5836] text-xs font-bold uppercase tracking-wider mb-4">
+              <Baby className="size-3.5" /> Familia
+            </span>
+            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-foreground mb-5">Para tu familia</h2>
+            <p class="text-base text-foreground/65 font-body leading-relaxed mb-6">
+              Los niños no se aburren en JCV. Los <strong class="text-foreground/80">domingos por la mañana (10:00 AM)</strong> tienen su propia <strong class="text-foreground/80">Escuela Dominical</strong>, con enseñanza bíblica adaptada a su edad, mientras los adultos participan del culto principal.
             </p>
+            <ul class="space-y-3 font-body text-sm text-foreground/70">
+              <li class="flex items-start gap-3">
+                <span class="size-6 rounded-full bg-[#C4813A]/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <Heart className="size-3.5 text-[#C4813A]" />
+                </span>
+                Ambiente seguro y cálido para los pequeños.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="size-6 rounded-full bg-[#7D5836]/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <BookOpen className="size-3.5 text-[#7D5836]" /> {/* TODO: definir rangos de edad y aula */}
+                </span>
+                Enseñanza adaptada según la edad.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="size-6 rounded-full bg-[#C4813A]/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <Users className="size-3.5 text-[#C4813A]" />
+                </span>
+                Los niños deben ingresar acompañados de un adulto.
+              </li>
+            </ul>
           </div>
 
-          <div class="p-5 rounded-xl bg-white/60 border border-black/5">
-            <h3 class="font-heading font-semibold text-base text-foreground">¿Tienen programas para niños o jóvenes?</h3>
-            <p class="mt-1 text-sm text-foreground/75">
-              ¡Sí! Contamos con espacios de enseñanza y actividades adaptadas para niños durante los servicios dominicales y reuniones de jóvenes los sábados.
-            </p>
+          <!-- TODO: reemplazar con imagen real de los niños en Escuela Dominical -->
+          <div class="rounded-2xl overflow-hidden shadow-lg ring-2 ring-[#E6D3C2] aspect-[4/3]">
+            <img
+              src="/images/familia.webp"
+              alt="Interior del templo de Jesús Camino de Vida, Bellavista Callao"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
+
         </div>
       </div>
-    </div>
+    </section>
+
+    {/* ── 6. CONVIVENCIA — fondo arena + cards cream & verde salvia (estilo exacto a la referencia) ── */}
+    <section id="convivencia" class="py-16 sm:py-24 bg-[#B7987C] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+
+        <div class="text-center mb-12 sm:mb-16">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-xs">
+            Convivencia
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white tracking-tight">
+            Convivencia en la iglesia
+          </h2>
+          <p class="mt-4 text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-body leading-relaxed">
+            Somos una familia espiritual. Estas pautas sencillas nos ayudan a cuidar el ambiente de paz, edificación y respeto mutuo.
+          </p>
+        </div>
+
+        {/* TODO: confirmar normas de convivencia oficiales con la directiva */}
+        <!-- Cards estilo referencia: fondo crema y verde salvia (#718B68) con botones tostados (#A58365) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              numero: "01",
+              titulo: "Puntualidad",
+              descripcion: "Llegar unos minutos antes nos permite iniciar el culto en comunión, orden y sin distracciones.",
+              isGreen: false,
+              icon: "clock",
+            },
+            {
+              numero: "02",
+              titulo: "Silenciar el celular",
+              descripcion: "Coloca tu teléfono en silencio antes de ingresar para disfrutar de un tiempo pleno de adoración.",
+              isGreen: true, // Card verde salvia destacada al centro (igual que en la referencia)
+              icon: "sparkles",
+            },
+            {
+              numero: "03",
+              titulo: "Respeto en el culto",
+              descripcion: "Guardamos una actitud de recogimiento y atención receptiva durante la predicación de la Palabra.",
+              isGreen: false,
+              icon: "book",
+            },
+            {
+              numero: "04",
+              titulo: "Cuidado de los niños",
+              descripcion: "Los pequeños deben estar acompañados por un adulto o participar felices en su Escuela Dominical.",
+              isGreen: false,
+              icon: "users",
+            },
+            {
+              numero: "05",
+              titulo: "Trato fraternal",
+              descripcion: "Nos saludamos y acogemos con calidez, paciencia y amor cristiano entre todos los asistentes.",
+              isGreen: true, // Segunda card verde para balance visual dinámico
+              icon: "heart",
+            },
+          ].map((norma, idx) => (
+            <div
+              class={`rounded-3xl p-7 sm:p-8 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                norma.isGreen
+                  ? "bg-[#718B68] text-white"
+                  : "bg-[#F5EBE1] text-foreground"
+              } ${idx === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
+            >
+              <!-- Icono superior -->
+              <div class={`size-12 rounded-2xl flex items-center justify-center mb-5 ${
+                norma.isGreen ? "bg-white/15 text-white" : "bg-[#B7987C]/20 text-[#7D5836]"
+              }`}>
+                {norma.icon === "clock" && <Clock className="size-6" />}
+                {norma.icon === "sparkles" && <Sparkles className="size-6" />}
+                {norma.icon === "book" && <BookOpen className="size-6" />}
+                {norma.icon === "users" && <Users className="size-6" />}
+                {norma.icon === "heart" && <Heart className="size-6" />}
+              </div>
+
+              <!-- Título de la norma -->
+              <h3 class={`font-heading font-bold text-lg sm:text-xl mb-3 leading-snug ${
+                norma.isGreen ? "text-white" : "text-foreground"
+              }`}>
+                {norma.titulo}
+              </h3>
+
+              <!-- Texto explicativo -->
+              <p class={`text-sm font-body leading-relaxed flex-1 mb-6 ${
+                norma.isGreen ? "text-white/85" : "text-foreground/75"
+              }`}>
+                {norma.descripcion}
+              </p>
+
+              <!-- Botón / badge marrón tostado estilo referencia -->
+              <div class="mt-auto inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#A58365] hover:bg-[#947457] text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors select-none">
+                Norma {norma.numero}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    {/* ── 7. CÓMO LLEGAR — blanco con cards de color ────────────────────────── */}
+    <section id="como-llegar" class="py-16 sm:py-20 bg-white px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+
+        <div class="text-center mb-12">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#7D5836]/10 text-[#7D5836] text-xs font-bold uppercase tracking-wider mb-3">
+            <MapPin className="size-3.5" /> Ubicación
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-foreground">Cómo llegar</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Dirección -->
+          <div class="rounded-2xl border border-black/5 shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+            <div class="h-1.5 bg-[#7D5836]"></div>
+            <div class="p-6 flex gap-4">
+              <div class="size-11 rounded-xl bg-[#7D5836]/10 flex items-center justify-center shrink-0">
+                <MapPin className="size-5 text-[#7D5836]" />
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-base text-foreground mb-1">Dirección</h3>
+                <p class="text-sm text-foreground/65 font-body leading-relaxed">Parque Ricardo Palma 144, Bellavista, Callao</p>
+                <a href="https://maps.app.goo.gl/g9BV6bRdonNRzcqf7" target="_blank" rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 mt-3 text-xs font-bold text-[#7D5836] hover:text-[#69492C] transition-colors group">
+                  Abrir en Google Maps
+                  <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estacionamiento -->
+          <div class="rounded-2xl border border-black/5 shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+            <div class="h-1.5 bg-[#C4813A]"></div>
+            <div class="p-6 flex gap-4">
+              <div class="size-11 rounded-xl bg-[#C4813A]/10 flex items-center justify-center shrink-0">
+                <Car className="size-5 text-[#C4813A]" />
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-base text-foreground mb-1">Estacionamiento</h3>
+                <p class="text-sm text-foreground/65 font-body leading-relaxed">Puedes estacionar directamente frente a la iglesia, en el área del Parque Ricardo Palma. Hay espacio disponible en la calle.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transporte público -->
+          <div class="rounded-2xl border border-black/5 shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+            <div class="h-1.5 bg-[#7D5836]"></div>
+            <div class="p-6 flex gap-4">
+              <div class="size-11 rounded-xl bg-[#7D5836]/10 flex items-center justify-center shrink-0">
+                <Bus className="size-5 text-[#7D5836]" />
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-base text-foreground mb-1">Transporte público</h3>
+                <p class="text-sm text-foreground/65 font-body leading-relaxed">Estamos cerca de la Av. Colonial, con acceso a múltiples rutas de transporte público desde el Callao y Lima.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {/* ── 8. FAQ — banda crema con acordeón ────────────────────────────────── */}
+    <section id="faq" class="py-16 sm:py-20 bg-[#F5EBE1] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl">
+
+        <div class="text-center mb-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C4813A]/15 text-[#C4813A] text-xs font-bold uppercase tracking-wider mb-3">
+            FAQ
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-foreground">Preguntas frecuentes</h2>
+          <p class="mt-3 text-foreground/60 text-sm sm:text-base font-body leading-relaxed">Lo que más nos preguntan los visitantes nuevos.</p>
+        </div>
+
+        <div class="space-y-2">
+          {FAQS.map((faq, i) => (
+            <details class="group bg-white rounded-xl border border-black/5 shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer list-none font-heading font-semibold text-sm sm:text-base text-foreground hover:text-[#7D5836] transition-colors select-none" aria-expanded="false">
+                {faq.pregunta}
+                <ChevronDown className="size-4 text-[#C4813A] shrink-0 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <div class="px-5 pb-5 pt-1 border-t border-black/5">
+                <p class="text-sm text-foreground/65 font-body leading-relaxed">{faq.respuesta}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    {/* ── 9. CTA FINAL — fondo arena + 3 cards estilo exacto a la referencia ── */}
+    <section id="contacto" class="py-16 sm:py-24 bg-[#B7987C] px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+
+        <div class="text-center mb-12 sm:mb-16">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-xs">
+            Tu primera visita
+          </span>
+          <h2 class="font-heading font-bold text-3xl sm:text-5xl text-white tracking-tight">
+            ¿Quieres que te esperemos?
+          </h2>
+          <p class="mt-4 text-white/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-body leading-relaxed">
+            Escríbenos y te recibimos con alegría. Alguien de nuestro equipo estará atento para darte la bienvenida y orientarte.
+          </p>
+        </div>
+
+        <!-- 3 cards al estilo idéntico de la referencia: Crema · Verde Salvia (Centro) · Crema -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+
+          <!-- Card 1 (Crema): Llegar directamente -->
+          <div class="rounded-3xl bg-[#F5EBE1] text-foreground p-7 sm:p-8 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="size-12 rounded-2xl bg-[#B7987C]/20 text-[#7D5836] flex items-center justify-center mb-5">
+              <Clock className="size-6" />
+            </div>
+            <h3 class="font-heading font-bold text-lg sm:text-xl text-foreground mb-3 leading-snug">
+              Llega directamente
+            </h3>
+            <p class="text-sm font-body text-foreground/75 leading-relaxed flex-1 mb-6">
+              Las puertas siempre están abiertas. Puedes llegar cualquier domingo a las 10:00 AM o 7:00 PM sin previo aviso.
+            </p>
+            <a
+              href="#servicios"
+              class="mt-auto inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-[#A58365] hover:bg-[#947457] text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer select-none"
+            >
+              Ver horarios
+            </a>
+          </div>
+
+          <!-- Card 2 (Verde Salvia #718B68 - Card Central Destacada con WhatsApp) -->
+          <div class="rounded-3xl bg-[#718B68] text-white p-7 sm:p-8 flex flex-col items-center text-center shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ring-2 ring-white/20">
+            <div class="size-12 rounded-2xl bg-white/15 text-white flex items-center justify-center mb-5">
+              <MessageCircle className="size-6" />
+            </div>
+            <h3 class="font-heading font-bold text-lg sm:text-xl text-white mb-3 leading-snug">
+              Escríbenos por WhatsApp
+            </h3>
+            <p class="text-sm font-body text-white/90 leading-relaxed flex-1 mb-6">
+              Avísanos que vienes. Te esperamos en la entrada, te presentamos a la congregación y resolvemos cualquier duda.
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-[#A58365] hover:bg-[#947457] text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all active:scale-95 cursor-pointer select-none"
+              aria-label="Escribir por WhatsApp para planificar una visita a Jesús Camino de Vida"
+            >
+              <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Escribir ahora
+            </a>
+          </div>
+
+          <!-- Card 3 (Crema): Preguntas frecuentes -->
+          <div class="rounded-3xl bg-[#F5EBE1] text-foreground p-7 sm:p-8 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="size-12 rounded-2xl bg-[#B7987C]/20 text-[#7D5836] flex items-center justify-center mb-5">
+              <Heart className="size-6" />
+            </div>
+            <h3 class="font-heading font-bold text-lg sm:text-xl text-foreground mb-3 leading-snug">
+              ¿Tienes alguna duda?
+            </h3>
+            <p class="text-sm font-body text-foreground/75 leading-relaxed flex-1 mb-6">
+              Revisa nuestras preguntas frecuentes para saber más sobre vestimenta, biblia, niños y cómo llegar.
+            </p>
+            <a
+              href="#faq"
+              class="mt-auto inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-[#A58365] hover:bg-[#947457] text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer select-none"
+            >
+              Ver preguntas
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Datos al pie de la sección -->
+        <p class="text-center text-white/75 text-xs sm:text-sm font-body">
+          Parque Ricardo Palma 144 · Bellavista, Callao · Domingos 10:00 AM y 7:00 PM
+        </p>
+
+      </div>
+    </section>
+
   </main>
 </Layout>
+
+<style>
+  @supports (interpolate-size: allow-keywords) {
+    details { interpolate-size: allow-keywords; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .transition-all, .transition-transform, .transition-colors, .transition-shadow {
+      transition-duration: 0ms !important;
+    }
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { display: none; }
+
+  /* Fondo semi-transparente para cards oscuras */
+  .bg-white\/8  { background-color: rgb(255 255 255 / 0.08); }
+  .bg-white\/12 { background-color: rgb(255 255 255 / 0.12); }
+  .bg-white\/15 { background-color: rgb(255 255 255 / 0.15); }
+</style>
