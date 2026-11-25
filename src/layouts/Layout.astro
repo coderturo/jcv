@@ -6,11 +6,13 @@ import ScrollToTop from "../components/ScrollToTop";
 interface Props {
   title?: string;
   description?: string;
+  robots?: string;
 }
 
 const {
   title = "Iglesia Jesús Camino de Vida - La Colonial ",
   description = "Iglesia Jesús Camino de Vida - La Colonial . Te esperamos los domingos a las 10:00 a.m. y 7:30 p.m. y entre semana. Fe que transforma, amor que permanece.",
+  robots,
 } = Astro.props;
 ---
 
@@ -26,6 +28,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#F5EBE1" />
+    {robots && <meta name="robots" content={robots} />}
 
     {/* Open Graph / Redes Sociales y WhatsApp */}
     <meta property="og:type" content="website" />

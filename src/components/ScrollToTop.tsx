@@ -5,7 +5,8 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
+    // Umbral de 250px para que se active oportunamente en páginas medianas y cortas (como 404)
+    const onScroll = () => setVisible(window.scrollY > 250);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

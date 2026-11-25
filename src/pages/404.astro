@@ -1,0 +1,212 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/ui/Header";
+import {
+  Compass,
+  ArrowRight,
+  MessageCircle,
+  BookOpen,
+  MapPin,
+  Users,
+  Heart,
+  Sparkles,
+} from "lucide-react";
+
+// Lista de citas rotativas con humor sano y mensaje de esperanza
+const FRASES_404 = [
+  "Error 404: la página no está, pero la gracia sí.",
+  "Te saliste del camino, pero Jesús Camino de Vida te lleva de vuelta.",
+  "Esta página no tiene señal, pero el cielo sí.",
+  "404: página no encontrada. Tu lugar en esta familia, sí.",
+  "Hasta el Buen Pastor deja las noventa y nueve por buscar a la que falta. Esta vez la que falta es una página.",
+];
+
+// Enlaces rápidos sugeridos
+const ENLACES_RAPIDOS = [
+  { label: "Conócenos", href: "/conocenos" },
+  { label: "Visítanos", href: "/visitanos" },
+  { label: "Ministerios", href: "/#ministerios" },
+  { label: "Ubicación", href: "/#ubicacion" },
+  { label: "Oremos", href: "/#oremos" },
+];
+
+const whatsappMessage = encodeURIComponent(
+  "Hola, intenté abrir una página de su sitio y no la encontré."
+);
+const whatsappUrl = `https://wa.me/51914258692?text=${whatsappMessage}`;
+---
+
+<Layout
+  title="Página no encontrada · Iglesia Jesús Camino de Vida"
+  description="El enlace que buscabas no existe o se mudó. Vuelve al inicio o planifica tu visita a la Iglesia Jesús Camino de Vida en Bellavista, Callao."
+  robots="noindex"
+>
+  {/* Header forzado a theme='light' para fondo crema #F5EBE1 */}
+  <Header client:load theme="light" currentPath="/404" />
+
+  <main
+    class="flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-10 sm:py-16 md:py-24 min-h-[72vh] text-center relative z-10"
+  >
+    <div class="max-w-2xl mx-auto flex flex-col items-center">
+      {/* Insignia / Marca con imagen existente */}
+
+      {/* 1. Elemento visual 404 con brújula sutil en el centro */}
+      <div
+        class="font-heading font-black tracking-tighter text-[#7D5836] flex items-center justify-center gap-1 sm:gap-3 select-none leading-none mb-3 sm:mb-4"
+        style="font-size: clamp(4.75rem, 16vw, 9.5rem);"
+        aria-label="Error 404"
+      >
+        <span>4</span>
+        <div
+          class="relative inline-flex items-center justify-center size-[0.82em] rounded-full border-[3px] sm:border-4 border-[#7D5836]/25 bg-[#EFE4D8]/70 shadow-inner group transition-transform duration-300 hover:scale-105"
+          title="Brújula: te ayudamos a retomar el camino"
+        >
+          <Compass
+            className="size-[58%] text-[#7D5836] stroke-[2.2] animate-compass motion-reduce:animate-none"
+            aria-hidden="true"
+          />
+        </div>
+        <span>4</span>
+      </div>
+
+      {/* 2. Título H1 */}
+      <h1
+        class="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] text-[#121213] tracking-tight leading-[1.2] max-w-xl mx-auto"
+      >
+        Esta página se perdió, pero Jesús a ti sí te encontró
+      </h1>
+
+      {/* 3. Subtítulo */}
+      <p
+        class="mt-4 text-base sm:text-lg text-[#52525B] max-w-lg mx-auto font-body leading-relaxed"
+      >
+        El enlace que buscabas no existe o se mudó. Tranquilo, aquí todo camino
+        vuelve a empezar en el inicio.
+      </p>
+
+      {/* 4. Frase rotativa pequeña (con fallback sin JS al primer elemento) */}
+      <div
+        class="mt-5 sm:mt-6 inline-flex items-center justify-center px-4 sm:px-5 py-2.5 rounded-xl bg-[#EFE4D8]/75 border border-[#BA9A7D]/30 max-w-md mx-auto shadow-xs"
+      >
+        <p
+          id="frase-rotativa-404"
+          class="italic font-accent text-sm sm:text-base text-[#7D5836] font-medium leading-snug transition-opacity duration-300"
+        >
+          “{FRASES_404[0]}”
+        </p>
+      </div>
+
+      {/* 5. Botones de acción */}
+      <div
+        class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto"
+      >
+        {/* Botón primario: Volver al inicio */}
+        <a
+          href="/"
+          class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#7D5836] px-6 py-3.5 text-white font-heading font-bold text-sm sm:text-base shadow-md hover:bg-[#69492C] hover:shadow-lg transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D5836] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5EBE1]"
+        >
+          <span>Volver al inicio</span>
+          <ArrowRight className="size-4 shrink-0" aria-hidden="true" />
+        </a>
+
+        {/* Botón secundario: Planifica tu visita (color verde oliva/salvia #718a68) */}
+        <a
+          href="/visitanos"
+          class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#718a68] hover:bg-[#5d7355] text-white px-6 py-3.5 font-heading font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#718a68] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5EBE1]"
+        >
+          <span>Planifica tu visita</span>
+        </a>
+      </div>
+
+      {/* Botón terciario (discreto): WhatsApp */}
+      <div class="mt-4">
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#52525B] hover:text-[#718a68] py-1.5 px-3 rounded-lg hover:bg-black/5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#718a68]"
+          aria-label="Escríbenos por WhatsApp si no encuentras lo que buscas"
+        >
+          <MessageCircle className="size-4 text-[#718a68]" aria-hidden="true" />
+          <span class="underline underline-offset-4 decoration-black/20 hover:decoration-[#718a68]">
+            ¿No encuentras lo que buscabas? Escríbenos por WhatsApp
+          </span>
+        </a>
+      </div>
+
+      {/* 6. Fila de enlaces rápidos */}
+      <div class="mt-10 pt-8 border-t border-black/10 w-full max-w-xl">
+        <p class="text-xs font-heading font-semibold uppercase tracking-wider text-[#52525B] mb-3">
+          ¿Buscabas algo de esto?
+        </p>
+        <nav
+          aria-label="Enlaces rápidos de ayuda"
+          class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5"
+        >
+          {
+            ENLACES_RAPIDOS.map((enlace) => (
+              <a
+                href={enlace.href}
+                class="px-3.5 py-1.5 rounded-lg bg-white/70 hover:bg-white text-xs sm:text-sm font-medium text-[#121213] border border-black/10 hover:border-[#BA9A7D] hover:text-[#7D5836] shadow-2xs hover:shadow-xs transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D5836]"
+              >
+                {enlace.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      {/* 7. Versículo opcional al pie */}
+      <div class="mt-8 text-center">
+        {/* TODO: pegar el texto en la versión Reina-Valera 1960 que ya usa el sitio */}
+        <div
+          class="inline-flex items-center gap-2 text-xs sm:text-sm text-[#7D5836]/90 font-medium"
+        >
+          <BookOpen className="size-3.5 text-[#BA9A7D] shrink-0" aria-hidden="true" />
+          <span>Lucas 15:4-6</span>
+          <span class="text-[#52525B]/70 text-[0.75rem]">(La oveja perdida)</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @keyframes compassGentlePulse {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(8deg);
+    }
+    75% {
+      transform: rotate(-8deg);
+    }
+  }
+
+  .animate-compass {
+    animation: compassGentlePulse 4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-compass {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ FRASES_404 }}>
+  // Frase rotativa al azar en cliente manteniendo la primera como SSR fallback
+  try {
+    if (Array.isArray(FRASES_404) && FRASES_404.length > 0) {
+      const indice = Math.floor(Math.random() * FRASES_404.length);
+      const el = document.getElementById("frase-rotativa-404");
+      if (el) {
+        el.textContent = `“${FRASES_404[indice]}”`;
+      }
+    }
+  } catch (e) {
+    // Silencioso: se conserva el fallback del servidor
+  }
+</script>
